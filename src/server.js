@@ -1,18 +1,13 @@
 const knex = require('knex')
 const app = require('./app')
-
 const { PORT, DB_URL } = require('./config')
 
 const db = knex({
     client: 'pg',
-    connection: DB_URL,
+    connection: DB_URL
 })
 
 app.set('db', db)
-
-app.get('/api', (req, res) => {
-    res.json('hi')
-})
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
