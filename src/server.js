@@ -9,8 +9,6 @@ const db = knex({
 
 app.set('db', db)
 
-const { PORT, DB_URL } = require('./config')
-
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
 module.exports = { app };

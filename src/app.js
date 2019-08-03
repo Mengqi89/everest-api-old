@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/schools', schoolsRouter)
-
 app.use('/api/admins/', adminsRouter)
 
 app.use(function errorHandler(error, req, res, next) {

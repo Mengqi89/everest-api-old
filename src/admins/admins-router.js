@@ -8,7 +8,7 @@ adminsRouter
     .route('/')
     .get((req, res, next) => {
         AdminsService.getAllAdmins(req.app.get('db'))
-            .then(admins => admins.map(admin => AdminsService.seriealizeAdmin(admin)))
+            .then(admins => admins.map(admin => AdminsService.serializeAdmin(admin)))
             .then(admins => res.json(admins))
             .catch(next)
     })
@@ -26,12 +26,38 @@ adminsRouter
             }
         })
 
-        AdminsService.insertAdmin(req.app.get('db'), newAdmin)
-            .then(newAdmin => {
-                res
-                    .status(201)
-                    .location(path.posix.join(req.originalUrl, `/${newAdmin.username}`))
-                    .json(AdminsService.seriealizeAdmin(newAdmin))
+        const passwordError = AdminsService.validatePassword(password)
+
+        if (passwordError) {
+            return res.status(400).json({ error: { message: passwordError } })
+        }
+
+        AdminsService.hasUsername(req.app.get('db'), username)
+            .then(hasUsername => {
+                if (hasUsername) {
+                    return res.status.json({ error: { message: 'Username already taken' } })
+                }
+                return AdminsService.hashPassword(password)
+                    .then(hashedPassword => {
+                        const newAdmin = {
+                            username,
+                            password: hashedPassword,
+                            last_name,
+                            first_name,
+                            email
+                        }
+
+                        return AdminsService.insertAdmin(
+                            req.app.get('db'),
+                            newAdmin
+                        )
+                            .then(newAdmin => {
+                                res
+                                    .status(201)
+                                    .location(path.posix.join(req.originalUrl, `/${newAdmin.username}`))
+                                    .json(AdminsService.serializeAdmin(newAdmin))
+                            })
+                    })
             })
             .catch(next)
     })
@@ -41,7 +67,7 @@ adminsRouter
     .get((req, res, next) => {
         const username = req.params.username
         AdminsService.getAdminByUsername(req.app.get('db'), username)
-            .then(admin => AdminsService.seriealizeAdmin(admin))
+            .then(admin => AdminsService.serializeAdmin(admin))
             .then(admin => res.json(admin))
             .catch(next)
     })//need to catch error here when no username is found
@@ -62,7 +88,7 @@ adminsRouter
             .then(updatedAdmin => {
                 res
                     .status(201)
-                    .json(AdminsService.seriealizeAdmin(updatedAdmin))
+                    .json(AdminsService.serializeAdmin(updatedAdmin))
             })
             .catch(next)
     })
@@ -73,7 +99,7 @@ adminsRouter
             .then(admins => {
                 res
                     .status(201)
-                    .json(admins.map(AdminsService.seriealizeAdmin))
+                    .json(admins.map(AdminsService.serializeAdmin))
             })
             .catch(next)
     })
