@@ -3,7 +3,6 @@ const AdminsService = require('./admins-service')
 const path = require('path')
 
 const adminsRouter = express.Router()
-const jsonParser = express.json()
 
 adminsRouter
     .route('/')
@@ -13,11 +12,12 @@ adminsRouter
             .then(admins => res.json(admins))
             .catch(next)
     })
-    .post(jsonParser, (req, res, next) => {
-        const newAdmin = req.body
+    .post((req, res, next) => {
+        const { first_name, last_name, username, email, password } = req.body
+        const newAdmin = { first_name, last_name, username, email, password }
         const requiredFields = ['first_name', 'last_name', 'username', 'email', 'password']
         requiredFields.forEach(field => {
-            if (newAdmin[field] === null) {
+            if (newAdmin[field] === "") {
                 return res
                     .status(400)
                     .json({
@@ -31,7 +31,7 @@ adminsRouter
                 res
                     .status(201)
                     .location(path.posix.join(req.originalUrl, `/${newAdmin.username}`))
-                    .then(newAdmin => AdminsService.seriealizeAdmin(newAdmin))
+                    .json(AdminsService.seriealizeAdmin(newAdmin))
             })
             .catch(next)
     })
@@ -45,7 +45,7 @@ adminsRouter
             .then(admin => res.json(admin))
             .catch(next)
     })//need to catch error here when no username is found
-    .patch(jsonParser, (req, res, next) => {
+    .patch((req, res, next) => {
         const username = req.params.username
         const { first_name, last_name, email, password } = req.body
         const newAdmin = { first_name, last_name, email, password }
@@ -62,7 +62,7 @@ adminsRouter
             .then(updatedAdmin => {
                 res
                     .status(201)
-                    .json(AdminsService.seriealizeAdmin(updatedAdmin[0]))
+                    .json(AdminsService.seriealizeAdmin(updatedAdmin))
             })
             .catch(next)
     })//can successfully update and get error message. However, when update succeeds, it returns 500 error. 

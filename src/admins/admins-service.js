@@ -25,6 +25,7 @@ const AdminsService = {
         return db('everest_admins')
             .where({ username })
             .update(newAdminFields)
+            .then(response => AdminsService.getAdminByUsername(db, username))
     },
     deleteAdmin(db, username) {
         return db('everest_admins')
