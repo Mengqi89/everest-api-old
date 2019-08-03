@@ -35,6 +35,8 @@ const SchoolsService = {
 
   serializeSchool(school) {
     return {
+      username: school.username,
+      password: school.password,
       school_name: school.school_name,
       school_type: school.school_type,
       school_size: school.school_size,
