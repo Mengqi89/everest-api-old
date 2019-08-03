@@ -44,6 +44,7 @@ authRouter
     .post('/login/admins', jsonBodyParser, (req, res, next) => {
         const { username, password } = req.body
         const loginAdmin = { username, password }
+        console.log(loginAdmin)
 
         for (const [key, value] of Object.entries(loginAdmin))
             if (value == null)
