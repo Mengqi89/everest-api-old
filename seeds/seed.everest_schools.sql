@@ -7,6 +7,8 @@ BEGIN;
 
   INSERT INTO everest_schools
   (
+username,
+password,
 school_name,
 school_type,
 school_size,
@@ -49,7 +51,9 @@ western_amenities_available_near_school_town
   )
   VALUES
   (
-    'Test School 1',
+  'TestSchool1',
+  'passwordTestSchool1',
+  'Test School 1',
   'Middle School',
   1200,
   true,

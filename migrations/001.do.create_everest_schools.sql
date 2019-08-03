@@ -1,5 +1,7 @@
 CREATE TABLE everest_schools (
     id SERIAL PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
     school_name TEXT NOT NULL,
     school_type TEXT NOT NULL,
     school_size INTEGER,
