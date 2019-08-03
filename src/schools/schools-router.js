@@ -18,24 +18,51 @@ schoolsRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const newSchool = req.body
-    const requiredFields = ['school_name', 'school_type']
-    requiredFields.forEach(field => {
-      if (newSchool[field] === null)
-        return res.status(400).json({
-          error: { message: `Missing '${field}' in request body` }
-        })
-    })
+    const { password, username, school_type, school_name } = req.body
 
-    SchoolsService.insertSchool(
+    for (const field of ['school_type', 'username', 'password', 'school_name'])
+      if (!req.body[field])
+        return res.status(400).json({
+          error: `Missing '${field}' in request body`
+        })
+
+    // TODO: check email doesn't start with spaces
+
+    const passwordError = SchoolsService.validatePassword(password)
+
+    if (passwordError)
+      return res.status(400).json({ error: passwordError })
+
+    SchoolsService.hasUsername(
       req.app.get('db'),
-      newSchool
+      username
     )
-      .then(school => {
-        res
-          .status(201)
-          .location(path.posix.join(req.originalUrl, `/${school.id}`))
-          .json(SchoolsService.serializeSchool(school))
+      .then(hasUsername => {
+        if (hasUsername)
+          return res.status(400).json({ error: `Username already taken` })
+
+        return SchoolsService.hashPassword(password)
+          .then(hashedPassword => {
+            const newSchool = {
+              username,
+              password: hashedPassword,
+              school_type,
+              school_name,
+              // date_created: 'now()',
+            }
+
+
+            return SchoolsService.insertSchool(
+              req.app.get('db'),
+              newSchool
+            )
+              .then(school => {
+                res
+                  .status(201)
+                  .location(path.posix.join(req.originalUrl, `/${school.id}`))
+                  .json(SchoolsService.serializeSchool(school))
+              })
+          })
       })
       .catch(next)
   })
