@@ -7,6 +7,8 @@ BEGIN;
 
   INSERT INTO everest_schools
   (
+username,
+password,
 school_name,
 school_type,
 school_size,
@@ -49,10 +51,12 @@ western_amenities_available_near_school_town
   )
   VALUES
   (
-    'Test School 1',
+  'TestSchool1',
+  'passwordTestSchool1',
+  'Test School 1',
   'Middle School',
   1200,
-  true,
+  'private',
   'AP',
   'Chengdu',
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in suscipit tortor, eu dignissim ante. Nulla fringilla blandit ligula sit amet laoreet. Donec sagittis nisi tortor, a malesuada lacus iaculis eu. In felis est, consectetur a lorem a, efficitur hendrerit orci. Sed nibh tellus, porta id sapien in, gravida pulvinar dui. Maecenas congue dui in ante tincidunt congue. Etiam id blandit ipsum. Cras quis libero rhoncus, gravida nisi id, venenatis sapien. Integer non nunc elit. Proin hendrerit dignissim lacus, at porttitor felis pellentesque in. Donec dictum molestie lectus fringilla egestas. Aliquam erat volutpat. Curabitur ullamcorper dolor non dui accumsan elementum. Curabitur pretium, velit ac volutpat laoreet, lacus sem tempus lectus, vel dignissim nunc leo vel arcu. Morbi quis pretium magna.',
