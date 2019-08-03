@@ -33,6 +33,7 @@ authRouter
                             })
 
                         const sub = dbSchool.username
+
                         const payload = { user_id: dbSchool.id }
                         res.send({
                             authToken: AuthService.createJwt(sub, payload),
@@ -78,5 +79,6 @@ authRouter
             })
             .catch(next)
     })
+
 
 module.exports = authRouter

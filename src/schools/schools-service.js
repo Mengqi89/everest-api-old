@@ -65,8 +65,8 @@ const SchoolsService = {
     return {
       username: school.username,
       password: school.password,
-      school_name: school.school_name,
-      school_type: school.school_type,
+      school_name: xss(school.school_name),
+      school_type: xss(school.school_type),
       school_size: school.school_size,
       public_or_private: school.public_or_private,
       curriculum: school.curriculum,
