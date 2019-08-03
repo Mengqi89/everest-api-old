@@ -24,7 +24,7 @@ adminsRouter
                         error: { message: `Missing '${field}' in request body` }
                     })
             }
-        })//can post but error is not properly caught
+        })
 
         AdminsService.insertAdmin(req.app.get('db'), newAdmin)
             .then(newAdmin => {
@@ -65,7 +65,7 @@ adminsRouter
                     .json(AdminsService.seriealizeAdmin(updatedAdmin))
             })
             .catch(next)
-    })//can successfully update and get error message. However, when update succeeds, it returns 500 error. 
+    })
     .delete((req, res, next) => {
         const username = req.params.username
 
