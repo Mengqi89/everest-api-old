@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const SchoolsService = require('./schools-service')
+const { requireAuth } = require('../middleware/jwt-auth');
 
 const schoolsRouter = express.Router()
 const jsonParser = express.json()
@@ -26,7 +27,6 @@ schoolsRouter
           error: `Missing '${field}' in request body`
         })
 
-    // TODO: check email doesn't start with spaces
 
     const passwordError = SchoolsService.validatePassword(password)
 
@@ -48,7 +48,6 @@ schoolsRouter
               password: hashedPassword,
               school_type,
               school_name,
-              // date_created: 'now()',
             }
 
 
@@ -68,7 +67,7 @@ schoolsRouter
   })
 
 schoolsRouter
-  .route('/:school_id')
+  .route('/school/:school_id')
   .all((req, res, next) => {
     SchoolsService.getById(
       req.app.get('db'),
@@ -100,13 +99,6 @@ schoolsRouter
   })
   .patch(jsonParser, (req, res, next) => {
     const schoolToUpdate = req.body
-    // const requiredFields = ['school_name', 'school_type']
-    // requiredFields.forEach(field => {
-    //   if (schoolToUpdate[field] === null)
-    //     return res.status(400).json({
-    //       error: { message: `Missing '${field}' in request body` }
-    //     })
-    // })
 
     SchoolsService.updateSchool(
       req.app.get('db'),
@@ -118,5 +110,23 @@ schoolsRouter
       })
       .catch(next)
   })
+
+schoolsRouter
+  .route('/school')
+  .all(requireAuth)
+  .get((req, res, next) => {
+    const { id } = req.user
+    SchoolsService.getById(req.app.get('db'), id)
+      .then(school => {
+        if (!school) {
+          res.status(404).json({ error: `School doesn't exist` })
+          next()
+        } else {
+          res.json(SchoolsService.serializeSchool(school))
+        }
+      })
+  })
+
+
 
 module.exports = schoolsRouter
