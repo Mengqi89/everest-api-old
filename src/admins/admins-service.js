@@ -15,10 +15,10 @@ const AdminsService = {
             .from('everest_admins')
             .select('*')
     },
-    getAdminByUsername(db, username) {
+    getAdminById(db, id) {
         return db
             .from('everest_admins')
-            .where({ username })
+            .where({ id })
             .first()
     },
     insertAdmin(db, newAdmin) {
@@ -67,6 +67,7 @@ const AdminsService = {
             last_name: xss(admin.last_name),
             username: xss(admin.username),
             email: xss(admin.email),
+            password: xss(admin.password),
             date_created: admin.date_created,
             date_modified: admin.date_modified
         }
