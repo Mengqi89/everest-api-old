@@ -38,7 +38,14 @@ teacherRouter
     .delete('/:teacherId', (req, res, next) => {
         const { teacherId } = req.params
         teacherService.deleteTeacher((req.app.get('db')), teacherId)
-            .then(teacher => res.json(teacher))
+            .then(row => {
+                if (row === 0) {
+                    res.status(404).json({
+                        error: 'unable to delete teacher, teacher not found'
+                    })
+                }
+                res.json(row)
+            })
     })
 
 
