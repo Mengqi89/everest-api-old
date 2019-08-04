@@ -13,29 +13,38 @@ adminsRouter
             .catch(next)
     })
     .post((req, res, next) => {
-        const { first_name, last_name, username, email, password } = req.body
-        const newAdmin = { first_name, last_name, username, email, password }
-        const requiredFields = ['first_name', 'last_name', 'username', 'email', 'password']
+        const { first_name, last_name, username, email, password, permission } = req.body
+        const newAdmin = { first_name, last_name, username, email, password, permission }
+        console.log(newAdmin)
+        const requiredFields = ['first_name', 'last_name', 'username', 'email', 'password', 'permission']
         requiredFields.forEach(field => {
             if (newAdmin[field] === "") {
                 return res
-                    .status(400)
+                    .status(401)
                     .json({
-                        error: { message: `Missing '${field}' in request body` }
+                        error: `Missing '${field}' in request body`
                     })
             }
         })
 
+        if (permission !== 'permission') {
+            return res
+                .status(400)
+                .json({
+                    error: `Permission code is wrong.`
+                })
+        }
+
         const passwordError = AdminsService.validatePassword(password)
 
         if (passwordError) {
-            return res.status(400).json({ error: { message: passwordError } })
+            return res.status(400).json({ error: passwordError })
         }
 
         AdminsService.hasUsername(req.app.get('db'), username)
             .then(hasUsername => {
                 if (hasUsername) {
-                    return res.status.json({ error: { message: 'Username already taken' } })
+                    return res.status.json({ error: 'Username already taken' })
                 }
                 return AdminsService.hashPassword(password)
                     .then(hashedPassword => {
@@ -63,14 +72,14 @@ adminsRouter
     })
 
 adminsRouter
-    .route('/:username')
+    .route('/:id')
     .get((req, res, next) => {
-        const username = req.params.username
-        AdminsService.getAdminByUsername(req.app.get('db'), username)
+        const id = req.params.id
+        AdminsService.getAdminById(req.app.get('db'), id)
             .then(admin => AdminsService.serializeAdmin(admin))
             .then(admin => res.json(admin))
             .catch(next)
-    })//need to catch error here when no username is found
+    })//need to catch error here when no id is found
     .patch((req, res, next) => {
         const username = req.params.username
         const { first_name, last_name, email, password } = req.body
@@ -81,7 +90,7 @@ adminsRouter
             return res
                 .status(400)
                 .json({
-                    error: { message: `Request body must contain either 'first_name', 'last_name', 'password', or 'email'` }
+                    error: `Request body must contain either 'first_name', 'last_name', 'password', or 'email'`
                 })
         }
         AdminsService.updateAdmin(req.app.get('db'), username, newAdmin)
