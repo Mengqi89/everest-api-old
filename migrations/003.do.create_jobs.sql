@@ -1,4 +1,4 @@
-CREATE TABLE jobs (
+CREATE TABLE everest_jobs (
     id SERIAL PRIMARY KEY,
     job_title TEXT NOT NULL,
     course TEXT NOT NULL,

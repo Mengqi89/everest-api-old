@@ -1,7 +1,7 @@
 BEGIN;
 
   TRUNCATE
-  jobs
+  everest_jobs
   RESTART IDENTITY CASCADE;
 
 
