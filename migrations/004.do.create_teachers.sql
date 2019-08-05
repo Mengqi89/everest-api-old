@@ -1,4 +1,4 @@
-CREATE TABLE teachers
+CREATE TABLE everest_teachers
 (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL,
