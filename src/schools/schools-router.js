@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const SchoolsService = require('./schools-service')
-const { requireAuth } = require('../middleware/jwt-auth');
+const { requireSchoolAuth } = require('../middleware/jwt-auth')
 
 const schoolsRouter = express.Router()
 const jsonParser = express.json()
@@ -113,8 +113,9 @@ schoolsRouter
 
 schoolsRouter
   .route('/school')
-  .all(requireAuth)
+  .all(requireSchoolAuth)
   .get((req, res, next) => {
+    console.log('hello school')
     const { id } = req.user
     SchoolsService.getById(req.app.get('db'), id)
       .then(school => {
