@@ -18,7 +18,8 @@ const AdminsService = {
     getAdminById(db, id) {
         return db
             .from('everest_admins')
-            .where({ id })
+            .select('*')
+            .where('id', id)
             .first()
     },
     insertAdmin(db, newAdmin) {

@@ -1,6 +1,7 @@
 const express = require('express')
 const AdminsService = require('./admins-service')
 const path = require('path')
+const { requireAdminAuth } = require('../middleware/jwt-auth')
 
 const adminsRouter = express.Router()
 
@@ -72,7 +73,7 @@ adminsRouter
     })
 
 adminsRouter
-    .route('/:id')
+    .route('/admin/:id')
     .get((req, res, next) => {
         const id = req.params.id
         AdminsService.getAdminById(req.app.get('db'), id)
@@ -111,6 +112,27 @@ adminsRouter
                     .json(admins.map(AdminsService.serializeAdmin))
             })
             .catch(next)
+    })
+
+adminsRouter
+    .route('/admin')
+    .all(requireAdminAuth)
+    .get((req, res, next) => {
+        const { id } = req.user
+        console.log(id)
+        AdminsService.getAdminById(req.app.get('db'), id)
+            .then(admin => {
+                if (!admin) {
+                    res
+                        .status(400)
+                        .json({
+                            error: `Admin doesn't exist`
+                        })
+                    next()
+                } else {
+                    res.json(AdminsService.serializeAdmin(admin))
+                }
+            })
     })
 
 module.exports = adminsRouter
