@@ -5,7 +5,7 @@ BEGIN;
   RESTART IDENTITY CASCADE;
 
 
-  INSERT INTO jobs
+  INSERT INTO everest_jobs
   (
     job_title,
     course,
