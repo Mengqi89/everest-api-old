@@ -2,7 +2,7 @@ BEGIN;
 
   TRUNCATE
   everest_schools,
-  teachers
+  everest_teachers
   RESTART IDENTITY CASCADE;
 
 
@@ -94,7 +94,7 @@ BEGIN;
       3,
       'Restaurants, shopping, bars'
     );
-  INSERT INTO teachers
+  INSERT INTO everest_teachers
     (
     username,
     password,

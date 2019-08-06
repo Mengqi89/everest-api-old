@@ -7,4 +7,4 @@ CREATE TABLE everest_admins (
   password TEXT NOT NULL,
   date_created TIMESTAMP DEFAULT now() NOT NULL,
   date_modified TIMESTAMP
-)
+);
