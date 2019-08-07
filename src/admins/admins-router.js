@@ -82,7 +82,8 @@ adminsRouter
             .catch(next)
     })//need to catch error here when no id is found
     .patch((req, res, next) => {
-        const username = req.params.username
+        const id = req.params.id
+        console.log(id)
         const { first_name, last_name, email, password } = req.body
         const newAdmin = { first_name, last_name, email, password }
 
@@ -94,7 +95,7 @@ adminsRouter
                     error: `Request body must contain either 'first_name', 'last_name', 'password', or 'email'`
                 })
         }
-        AdminsService.updateAdmin(req.app.get('db'), username, newAdmin)
+        AdminsService.updateAdmin(req.app.get('db'), id, newAdmin)
             .then(updatedAdmin => {
                 res
                     .status(201)
@@ -103,9 +104,9 @@ adminsRouter
             .catch(next)
     })
     .delete((req, res, next) => {
-        const username = req.params.username
+        const id = req.params.id
 
-        AdminsService.deleteAdmin(req.app.get('db'), username)
+        AdminsService.deleteAdmin(req.app.get('db'), id)
             .then(admins => {
                 res
                     .status(201)
