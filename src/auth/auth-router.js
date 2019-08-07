@@ -78,7 +78,7 @@ authRouter
             })
             .catch(next)
     })
-    .post('/login/teacher', jsonBodyParser, (req, res, next) => {
+    .post('/login/teachers', jsonBodyParser, (req, res, next) => {
         const { username, password } = req.body
         const loginTeacher = { username, password }
         console.log(loginTeacher)
