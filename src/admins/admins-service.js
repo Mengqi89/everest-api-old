@@ -31,15 +31,15 @@ const AdminsService = {
                 return rows[0]
             })
     },
-    updateAdmin(db, username, newAdminFields) {
+    updateAdmin(db, id, newAdminFields) {
         return db('everest_admins')
-            .where({ username })
+            .where({ id })
             .update(newAdminFields)
-            .then(response => AdminsService.getAdminByUsername(db, username))
+            .then(response => AdminsService.getAdminById(db, id))
     },
-    deleteAdmin(db, username) {
+    deleteAdmin(db, id) {
         return db('everest_admins')
-            .where({ username })
+            .where({ id })
             .del()
             .then(response => AdminsService.getAllAdmins(db))
     },
