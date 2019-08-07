@@ -14,6 +14,11 @@ const AuthService = {
             .where({ username })
             .first()
     },
+    getTeacherUsername(db, username) {
+        return db('everest_teachers')
+            .where({ username })
+            .first()
+    },
     comparePasswords(password, hash) {
         return bcrypt.compare(password, hash)
     },

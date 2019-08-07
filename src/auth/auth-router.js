@@ -78,6 +78,42 @@ authRouter
             })
             .catch(next)
     })
+    .post('/login/teacher', jsonBodyParser, (req, res, next) => {
+        const { username, password } = req.body
+        const loginTeacher = { username, password }
+        console.log(loginTeacher)
+        for (const [key, value] of Object.entries(loginTeacher))
+            if (value == null)
+                return res.status(400).json({
+                    error: `Missing '${key}' in request body`
+                })
+
+        AuthService.getTeacherUsername(
+            req.app.get('db'),
+            loginTeacher.username
+        )
+            .then(teacher => {
+                if (!teacher)
+                    return res.status(400).json({
+                        error: 'Incorrect username or password',
+                    })
+
+                return AuthService.comparePasswords(loginTeacher.password, teacher.password)
+                    .then(compareMatch => {
+                        if (!compareMatch)
+                            return res.status(400).json({
+                                error: 'Incorrect username or password',
+                            })
+
+                        const sub = teacher.username
+                        const payload = { user_id: teacher.id }
+                        res.send({
+                            authToken: AuthService.createJwt(sub, payload),
+                        })
+                    })
+            })
+            .catch(next)
+    })
 
 
 module.exports = authRouter

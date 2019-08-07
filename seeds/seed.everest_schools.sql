@@ -130,9 +130,9 @@ BEGIN;
       'English',
       'Florida State University',
       'none',
-      1,
-      0,
-      1
+      '1',
+      '0',
+      '1'
     );
 
   -- INSERT INTO everest_schools

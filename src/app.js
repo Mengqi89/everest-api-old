@@ -7,11 +7,9 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const adminsRouter = require('./admins/admins-router')
 const schoolsRouter = require('./schools/schools-router')
+const teachersRouter = require('./teachers/teachers-router')
 const jobsRouter = require('./jobs/jobs-router')
 const authRouter = require('./auth/auth-router')
-
-
-const teachersRouter = require('./teachers/teachers-router')
 
 const app = express()
 
@@ -23,10 +21,6 @@ app.use(cors());
 app.use(helmet())
 app.use(express.json())
 
-
-app.use('/api/teachers', teachersRouter)
-
-
 app.get('/', (req, res) => {
   res.send('Hello, boilerplate!')
 })
@@ -34,7 +28,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter)
 app.use('/api/schools', schoolsRouter)
 app.use('/api/jobs', jobsRouter)
-app.use('/api/admins/', adminsRouter)
+app.use('/api/admins', adminsRouter)
+app.use('/api/teachers', teachersRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response

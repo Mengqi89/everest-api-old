@@ -10,12 +10,12 @@ CREATE TABLE everest_teachers
     nationality TEXT NOT NULL,
     race TEXT NOT NULL,
     native_speaker BOOLEAN NOT NULL,
-    married BOOLEAN NOT NULL,
+    married TEXT NOT NULL,
     highest_degree TEXT NOT NULL,
     field_of_degree TEXT NOT NULL,
     school TEXT NOT NULL,
     certification TEXT NOT NULL,
-    years_of_experience INTEGER NOT NULL,
-    years_in_china INTEGER NOT NULL,
-    years_teaching_abroad INTEGER NOT NULL
+    years_of_experience TEXT NOT NULL,
+    years_in_china TEXT NOT NULL,
+    years_teaching_abroad TEXT NOT NULL
 );

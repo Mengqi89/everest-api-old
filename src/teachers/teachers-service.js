@@ -1,34 +1,40 @@
-const teacherService = {
+const TeacherService = {
     getAllTeachers(db) {
         return db
-            .from('teachers')
+            .from('everest_teachers')
             .select('*')
     },
     getById(db, id) {
         return db
-            .from('teachers')
+            .from('everest_teachers')
             .where('id', id)
             .first()
     },
-    postTeacher(db, newTeacher) {
+    hasUsername(db, username) {
+        return db('everest_teachers')
+            .where('username', username)
+            .first()
+            .then(username => !!username)
+    },
+    insertTeacher(db, newTeacher) {
         return db
             .insert(newTeacher)
-            .into('teachers')
+            .into('everest_teachers')
             .returning('*')
     },
     updateTeacher(db, id, updatedTeacher) {
-        return db('teachers')
+        return db('everest_teachers')
             .where('id', id)
             .update(updatedTeacher)
             .returning('username')
             .then(res => res)
     },
     deleteTeacher(db, id) {
-        return db('teachers')
+        return db('everest_teachers')
             .where('id', id)
             .del()
     }
 
 }
 
-module.exports = teacherService
+module.exports = TeacherService
