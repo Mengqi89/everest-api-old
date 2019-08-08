@@ -1,10 +1,10 @@
 const JobsService = {
     getAllJobs(knex) {
-       return knex.from('jobs').select('*')
+       return knex.from('everest_jobs').select('*')
     },
     insertJob(knex, newJob) {
         return knex.insert(newJob)
-            .into('jobs')
+            .into('everest_jobs')
             .returning('*')
             .then(rows => {
                 return rows[0]
@@ -12,19 +12,19 @@ const JobsService = {
     },
     getById(knex, id) {
         return knex
-            .from('jobs')
+            .from('everest_jobs')
             .select('*')
             .where( 'id', id)
             .first()
     },
     deleteJob(db, id) {
-        return db('jobs')
+        return db('everest_jobs')
             .where({ id })
             .delete()
             .then(res => JobsService.getAllJobs(db))
     },
     updateJob(db, id, newJobsFields) {
-        return db('jobs')
+        return db('everest_jobs')
             .where('id', id)
             .update(newJobsFields)
            
