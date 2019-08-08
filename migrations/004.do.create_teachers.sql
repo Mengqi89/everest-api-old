@@ -1,7 +1,7 @@
 CREATE TABLE everest_teachers
 (
     id SERIAL PRIMARY KEY,
-    is_approved BOOLEAN NOT NULL,
+    approved BOOLEAN NOT NULL,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
     first_name TEXT NOT NULL,
