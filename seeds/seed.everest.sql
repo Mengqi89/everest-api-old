@@ -198,6 +198,7 @@ BEGIN;
     )
   VALUES
     (
+      false,
       'NatBowie',
       'Password1!',
       'Natasha',
