@@ -228,10 +228,6 @@ VALUES
 (
     1,
     1
-),
-(
-    1,
-    1
 );
 
   -- INSERT INTO everest_schools
