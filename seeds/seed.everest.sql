@@ -71,8 +71,9 @@ BEGIN;
     )
   VALUES
     (
-      'testSChool1',
-      'Password1!',
+      'testSchool1',
+      '$2a$12$KiUL9KVwSLiuUjpbNzSuKe6CfuCeX5xxLssZiGD4l5YyiEWZZfkoi',
+      -- Password1!
       'Test School 1',
       'Middle School',
       1200,

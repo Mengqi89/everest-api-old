@@ -63,6 +63,7 @@ const SchoolsService = {
   },
   serializeSchool(school) {
     return {
+      id: school.id,
       username: school.username,
       password: school.password,
       school_name: xss(school.school_name),
