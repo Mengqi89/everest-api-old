@@ -25,5 +25,5 @@ CREATE TABLE everest_jobs (
     sick_days INTEGER,
     personal_days INTEGER,
     time_off_for_holidays BOOLEAN,
-    total_salary INTEGER NOT NUll,
+    total_salary INTEGER NOT NUll
 );

@@ -141,7 +141,8 @@ BEGIN;
     sick_days,
     personal_days,
     time_off_for_holidays,
-    total_salary
+    total_salary,
+    school_id
     )
     VALUES
     (
@@ -170,7 +171,8 @@ BEGIN;
     10,
     5,
     false,
-    15000
+    15000,
+    1
     );
 
   INSERT INTO everest_teachers
