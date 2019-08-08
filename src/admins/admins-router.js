@@ -16,7 +16,6 @@ adminsRouter
     .post((req, res, next) => {
         const { first_name, last_name, username, email, password, permission } = req.body
         const newAdmin = { first_name, last_name, username, email, password, permission }
-        console.log(newAdmin)
         const requiredFields = ['first_name', 'last_name', 'username', 'email', 'password', 'permission']
         requiredFields.forEach(field => {
             if (newAdmin[field] === "") {
@@ -45,7 +44,7 @@ adminsRouter
         AdminsService.hasUsername(req.app.get('db'), username)
             .then(hasUsername => {
                 if (hasUsername) {
-                    return res.status.json({ error: 'Username already taken' })
+                    return res.status(409).json({ error: 'Username already taken' })
                 }
                 return AdminsService.hashPassword(password)
                     .then(hashedPassword => {
@@ -83,25 +82,42 @@ adminsRouter
     })//need to catch error here when no id is found
     .patch((req, res, next) => {
         const id = req.params.id
-        console.log(id)
         const { first_name, last_name, email, password } = req.body
         const newAdmin = { first_name, last_name, email, password }
 
-        const numberOfValues = Object.values(newAdmin).filter(Boolean).length
-        if (numberOfValues === 0) {
-            return res
-                .status(400)
-                .json({
-                    error: `Request body must contain either 'first_name', 'last_name', 'password', or 'email'`
-                })
+        const requiredFields = ['first_name', 'last_name', 'email', 'password']
+        requiredFields.forEach(field => {
+            if (newAdmin[field] === "") {
+                return res
+                    .status(401)
+                    .json({
+                        error: `Missing '${field}' in request body`
+                    })
+            }
+        })
+
+        const passwordError = AdminsService.validatePassword(password)
+
+        if (passwordError) {
+            return res.status(400).json({ error: passwordError })
         }
-        AdminsService.updateAdmin(req.app.get('db'), id, newAdmin)
-            .then(updatedAdmin => {
-                res
-                    .status(201)
-                    .json(AdminsService.serializeAdmin(updatedAdmin))
+
+        AdminsService.hashPassword(password)
+            .then(hashedPassword => {
+                const updatedAdmin = {
+                    first_name,
+                    last_name,
+                    password: hashedPassword,
+                    email
+                }
+                return AdminsService.updateAdmin(req.app.get('db'), id, updatedAdmin)
+                    .then(updatedAdmin => {
+                        res
+                            .status(201)
+                            .json(AdminsService.serializeAdmin(updatedAdmin))
+                    })
+                    .catch(next)
             })
-            .catch(next)
     })
     .delete((req, res, next) => {
         const id = req.params.id

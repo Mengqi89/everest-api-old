@@ -10,6 +10,7 @@ const schoolsRouter = require('./schools/schools-router')
 const teachersRouter = require('./teachers/teachers-router')
 const jobsRouter = require('./jobs/jobs-router')
 const authRouter = require('./auth/auth-router')
+const applicationsRouter = require('./applications/application-router')
 
 const app = express()
 
@@ -30,6 +31,7 @@ app.use('/api/schools', schoolsRouter)
 app.use('/api/jobs', jobsRouter)
 app.use('/api/admins', adminsRouter)
 app.use('/api/teachers', teachersRouter)
+app.use('/api/applications', applicationsRouter)
 
 app.use(function errorHandler(error, req, res, next) {
   let response
