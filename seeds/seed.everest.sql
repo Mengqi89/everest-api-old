@@ -214,6 +214,21 @@ BEGIN;
       '1'
     );
 
+    INSERT INTO everest_applications
+(
+    job,
+    teacher
+)
+VALUES
+(
+    1,
+    1
+),
+(
+    1,
+    1
+);
+
   -- INSERT INTO everest_schools
   -- (
   --   schoolName,
