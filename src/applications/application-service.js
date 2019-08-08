@@ -6,6 +6,7 @@ const ApplicationsService = {
             .select('*')
             .join('everest_jobs', 'everest_jobs.id', '=', 'everest_applications.job')
             .select('*')
+            .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
     },
     getApplicationById(db, jobId, teacherId) {
         return this.getAllApplications(db)
