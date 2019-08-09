@@ -178,6 +178,7 @@ BEGIN;
 
   INSERT INTO everest_teachers
     (
+    approved,
     username,
     password,
     first_name,
@@ -224,10 +225,6 @@ BEGIN;
     teacher
 )
 VALUES
-(
-    1,
-    1
-),
 (
     1,
     1
