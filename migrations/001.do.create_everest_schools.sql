@@ -40,5 +40,6 @@ CREATE TABLE everest_schools (
     assistance_shopping_and_settling_in BOOLEAN,
     organized_trips_for_teachers BOOLEAN,
     other_western_teachers_at_school INTEGER,
-    western_amenities_available_near_school_town TEXT
+    western_amenities_available_near_school_town TEXT,
+    school_approved BOOLEAN NOT NULL DEFAULT false
 );
