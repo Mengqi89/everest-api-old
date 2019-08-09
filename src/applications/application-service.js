@@ -16,7 +16,7 @@ const ApplicationsService = {
             .join('everest_jobs', 'everest_jobs.id', '=', 'everest_applications.job')
             .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
     },
-    approveApplication(db, applicationId, newApplicationField) {
+    toggleAppApproval(db, applicationId, newApplicationField) {
         return db('everest_applications')
             .where('id', applicationId)
             .update(newApplicationField)

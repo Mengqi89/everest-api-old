@@ -22,12 +22,23 @@ applicationsRouter
     })
     .patch((req, res, next) => {
         const applicationId = req.params.applicationId
-        const newApplicationField = {
-            application_approved: true
+        const { approvalStatus } = req.body
+        if (approvalStatus === true) {
+            const newApplicationField = {
+                application_approved: false
+            }
+            ApplicationsService.toggleAppApproval(req.app.get('db'), applicationId, newApplicationField)
+                .then(numRowsAffected => res.json(numRowsAffected))
+                .catch(next)
+        } else {
+            const newApplicationField = {
+                application_approved: true
+            }
+            ApplicationsService.toggleAppApproval(req.app.get('db'), applicationId, newApplicationField)
+                .then(numRowsAffected => res.json(numRowsAffected))
+                .catch(next)
         }
-        ApplicationsService.approveApplication(req.app.get('db'), applicationId, newApplicationField)
-            .then(numRowsAffected => res.json(numRowsAffected))
-            .catch(next)
+
     })
 
 module.exports = applicationsRouter
