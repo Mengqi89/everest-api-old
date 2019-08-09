@@ -6,5 +6,5 @@ CREATE TABLE everest_admins (
   email TEXT NOT NULL,
   password TEXT NOT NULL,
   date_created TIMESTAMP DEFAULT now() NOT NULL,
-  date_modified TIMESTAMP
+  date_modified TIMESTAMP DEFAULT now() NOT NULL
 );
