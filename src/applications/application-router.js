@@ -4,18 +4,26 @@ const ApplicationsService = require('./application-service')
 const applicationsRouter = express.Router()
 
 applicationsRouter
-    .route('/')
+    .route('/admin')
     .get((req, res, next) => {
         ApplicationsService.getAllApplications(req.app.get('db'))
             .then(applications => res.json(applications))
             .catch(next)
     })
 
+applicationsRouter
+    .route('/school/:schoolId')
+    .get((req, res, next) => {
+        const { schoolId } = req.params
+        ApplicationsService.getApplicationsForSchool(req.app.get('db'), schoolId)
+            .then(applications => res.json(applications))
+            .catch(next)
+    })
 
 applicationsRouter
     .route('/:applicationId')
     .get((req, res, next) => {
-        const applicationId = req.params.applicationId
+        const { applicationId } = req.params
         ApplicationsService.getApplicationById(req.app.get('db'), applicationId)
             .then(application => res.json(application))
             .catch(next)
