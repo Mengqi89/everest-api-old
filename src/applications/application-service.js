@@ -8,6 +8,12 @@ const ApplicationsService = {
             .select('*')
             .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
     },
+    getApplicationsForSchool(db, schoolId) {
+        return ApplicationsService.getAllApplications(db)
+            .where('school_id', schoolId)
+            .select('*')
+
+    },
     getApplicationById(db, applicationId) {
         return db
             .from('everest_applications')
