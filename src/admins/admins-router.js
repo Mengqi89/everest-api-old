@@ -136,7 +136,7 @@ adminsRouter
     .all(requireAdminAuth)
     .get((req, res, next) => {
         const { id } = req.user
-        console.log(id)
+        // console.log(id)
         AdminsService.getAdminById(req.app.get('db'), id)
             .then(admin => {
                 if (!admin) {
