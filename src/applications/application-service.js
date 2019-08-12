@@ -14,6 +14,12 @@ const ApplicationsService = {
             .select('*')
 
     },
+    getApplicationsForTeacher(db, teacherId) {
+        return ApplicationsService.getAllApplications(db)
+            .where('teacher', teacherId)
+            .select('*')
+
+    },
     getApplicationById(db, applicationId) {
         return db
             .from('everest_applications')
