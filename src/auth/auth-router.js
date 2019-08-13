@@ -86,12 +86,15 @@ authRouter
           error: `Missing '${key}' in request body`
         });
 
-    AuthService.getTeacherUsername(req.app.get('db'), loginTeacher.username)
+    AuthService.getTeacherWithUsername(
+      req.app.get('db'),
+      loginTeacher.username
+    )
       .then(teacher => {
         if (!teacher)
           return res.status(400).json({
-            error: 'Incorrect username or password'
-          });
+            error: 'Incorrect username or password',
+          })
 
         return AuthService.comparePasswords(
           loginTeacher.password,
@@ -102,14 +105,14 @@ authRouter
               error: 'Incorrect username or password'
             });
 
-          const sub = teacher.username;
-          const payload = { user_id: teacher.id };
+          const sub = teacher.username
+          const payload = { user_id: teacher.id }
           res.send({
             authToken: AuthService.createJwt(sub, payload)
-          });
-        });
+          })
+        })
       })
-      .catch(next);
-  });
+      .catch(next)
+  })
 
 module.exports = authRouter;
