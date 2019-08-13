@@ -13,8 +13,9 @@ CREATE TABLE everest_schools (
     apartment_provided BOOLEAN,
     housing_assistance TEXT,
     size_of_housing TEXT,
-    shared_room BOOLEAN,
-    private_room BOOLEAN,
+    -- shared_room BOOLEAN,
+    -- private_room BOOLEAN,
+    shared_or_private_living_space TEXT,
     housing_notes TEXT,
     housing_on_or_off TEXT,
     time_to_get_to_class TEXT,
@@ -40,5 +41,6 @@ CREATE TABLE everest_schools (
     assistance_shopping_and_settling_in BOOLEAN,
     organized_trips_for_teachers BOOLEAN,
     other_western_teachers_at_school INTEGER,
-    western_amenities_available_near_school_town TEXT
+    western_amenities_available_near_school_town TEXT,
+    school_approved BOOLEAN NOT NULL DEFAULT false
 );
