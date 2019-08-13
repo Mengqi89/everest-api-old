@@ -40,8 +40,9 @@ BEGIN;
     apartment_provided,
     housing_assistance,
     size_of_housing,
-    shared_room,
-    private_room,
+    -- shared_room,
+    -- private_room,
+    shared_or_private_living_space,
     housing_notes,
     housing_on_or_off,
     time_to_get_to_class,
@@ -67,7 +68,8 @@ BEGIN;
     assistance_shopping_and_settling_in,
     organized_trips_for_teachers,
     other_western_teachers_at_school,
-    western_amenities_available_near_school_town
+    western_amenities_available_near_school_town,
+    school_approved
     )
   VALUES
     (
@@ -85,8 +87,9 @@ BEGIN;
       true,
       'Will help teacher find housing.',
       '2 Bed/2 Bath',
-      true,
-      false,
+      -- true,
+      -- false,
+      'Shared',
       'Shared living room with 1 other teacher',
       'Off Campus',
       '10 minute walk',
@@ -112,7 +115,8 @@ BEGIN;
       true,
       true,
       3,
-      'Restaurants, shopping, bars'
+      'Restaurants, shopping, bars',
+      false
     );
     
     INSERT INTO everest_jobs
@@ -143,7 +147,8 @@ BEGIN;
     personal_days,
     time_off_for_holidays,
     total_salary,
-    school_id
+    school_id,
+    job_approved
     )
     VALUES
     (
@@ -173,12 +178,13 @@ BEGIN;
     5,
     false,
     15000,
-    1
+    1,
+    false
     );
 
   INSERT INTO everest_teachers
     (
-    approved,
+    teacher_approved,
     username,
     password,
     first_name,
@@ -201,7 +207,8 @@ BEGIN;
     (
       false,
       'NatBowie',
-      'Password1!',
+      '$2a$12$bS0HJTSC64Znaz.armIYaOr1on3tSZOgMqN9JbbljwdvE96o.B.G2',
+      -- 'Password1!',
       'Natasha',
       'Bowie',
       29,
