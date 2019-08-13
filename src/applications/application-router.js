@@ -21,6 +21,15 @@ applicationsRouter
     })
 
 applicationsRouter
+    .route('/teacher/:teacherId')
+    .get((req, res, next) => {
+        const { teacherId } = req.params
+        ApplicationsService.getApplicationsForTeacher(req.app.get('db'), teacherId)
+            .then(applications => res.json(applications))
+            .catch(next)
+    })
+
+applicationsRouter
     .route('/:applicationId')
     .get((req, res, next) => {
         const { applicationId } = req.params
