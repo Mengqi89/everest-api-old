@@ -88,7 +88,7 @@ authRouter
                     error: `Missing '${key}' in request body`
                 })
 
-        AuthService.getTeacherUsername(
+        AuthService.getTeacherWithUsername(
             req.app.get('db'),
             loginTeacher.username
         )
@@ -109,6 +109,7 @@ authRouter
                         const payload = { user_id: teacher.id }
                         res.send({
                             authToken: AuthService.createJwt(sub, payload),
+                            teacher: teacher
                         })
                     })
             })

@@ -10,6 +10,12 @@ const TeacherService = {
             .where('id', id)
             .first()
     },
+    getTeacherWithUsername(db, username) {
+        return db
+            .from('everest_teachers')
+            .where({ username })
+            .first()
+    },
     hasUsername(db, username) {
         return db('everest_teachers')
             .where('username', username)
