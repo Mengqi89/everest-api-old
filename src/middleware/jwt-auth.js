@@ -71,7 +71,6 @@ function requireTeacherAuth(req, res, next) {
 
   try {
     const payload = AuthService.verifyJwt(bearerToken)
-    console.log('payload,', payload)
     AuthService.getTeacherWithUsername(
       req.app.get('db'),
       payload.sub,
@@ -83,7 +82,6 @@ function requireTeacherAuth(req, res, next) {
         res.json(user)
       })
       .catch(err => {
-        console.error(err)
         next(err)
       })
   } catch (error) {

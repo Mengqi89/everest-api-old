@@ -1,7 +1,8 @@
 const express = require('express')
 const TeacherService = require('./teachers-service')
 const SchoolsService = require('../schools/schools-service')
-const { requireTeacherAuth } = require('../middleware/jwt-auth')
+const { requireTeacherAuth, requireAdminAuth } = require('../middleware/jwt-auth')
+
 
 const teacherRouter = express.Router()
 
@@ -11,7 +12,7 @@ teacherRouter
             .then(teachers => res.json(teachers))
             .catch(next)
     })
-    .get('/:teacherId', requireTeacherAuth, (req, res, next) => {
+    .get('/:teacherId', requireAdminAuth, (req, res, next) => {
         const { teacherId } = req.params
         TeacherService.getById((req.app.get('db')), teacherId)
             .then(teacher => {
