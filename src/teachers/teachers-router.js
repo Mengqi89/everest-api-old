@@ -106,7 +106,7 @@ teacherRouter
             })
             .catch(next)
     })
-    .patch('/:teacherId', (req, res, next) => {
+    .patch('/teacher/:teacherId', (req, res, next) => {
         const { teacherId } = req.params
         const newTeacher = newTeacherFn(req)
         TeacherService.updateTeacher((req.app.get('db')), teacherId, newTeacher)
@@ -125,7 +125,7 @@ teacherRouter
                 res.json(row)
             })
     })
-    .get('/teacher/profile', requireTeacherAuth)
+    .get('/teacher', requireTeacherAuth)
 
 function newTeacherFn(req) {
     return ({
