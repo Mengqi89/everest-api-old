@@ -12,7 +12,8 @@ teacherRouter
             .then(teachers => res.json(teachers))
             .catch(next)
     })
-    .get('/:teacherId', requireAdminAuth, (req, res, next) => {
+    .get('/teacher', requireTeacherAuth)
+    .get('teacher/:teacherId', requireAdminAuth, (req, res, next) => {
         const { teacherId } = req.params
         TeacherService.getById((req.app.get('db')), teacherId)
             .then(teacher => {
@@ -126,7 +127,7 @@ teacherRouter
                 res.json(row)
             })
     })
-    .get('/teacher', requireTeacherAuth)
+
 
 function newTeacherFn(req) {
     return ({
