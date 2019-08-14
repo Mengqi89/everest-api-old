@@ -14,18 +14,18 @@ const JobsService = {
         return knex
             .from('everest_jobs')
             .select('*')
-            .where('job_id', id)
+            .where('id', id)
             .first()
     },
     deleteJob(db, id) {
         return db('everest_jobs')
-            .where('job_id', id)
+            .where('id', id)
             .delete()
             .then(res => JobsService.getAllJobs(db))
     },
     updateJob(db, id, newJobsFields) {
         return db('everest_jobs')
-            .where('job_id', id)
+            .where('id', id)
             .update(newJobsFields)
 
     },
