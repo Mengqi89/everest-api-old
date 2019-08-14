@@ -17,6 +17,7 @@ function requireAdminAuth(req, res, next) {
           return res.status(401).json({ error: 'Unauthorized request' });
         req.user = user;
         next();
+        return null;
       })
       .catch(err => {
         console.error(err);
