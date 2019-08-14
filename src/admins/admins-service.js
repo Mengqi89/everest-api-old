@@ -18,7 +18,7 @@ const AdminsService = {
         return db
             .from('everest_admins')
             .select('*')
-            .where('id', id)
+            .where('admin_id', id)
             .first()
     },
     insertAdmin(db, newAdmin) {
@@ -32,13 +32,13 @@ const AdminsService = {
     },
     updateAdmin(db, id, newAdminFields) {
         return db('everest_admins')
-            .where({ id })
+            .where('admin_id', id)
             .update(newAdminFields)
             .then(response => AdminsService.getAdminById(db, id))
     },
     deleteAdmin(db, id) {
         return db('everest_admins')
-            .where({ id })
+            .where('admin_id', id)
             .del()
             .then(response => AdminsService.getAllAdmins(db))
     },

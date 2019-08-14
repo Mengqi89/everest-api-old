@@ -2,11 +2,11 @@ const ApplicationsService = {
     getAllApplications(db) {
         return db
             .from('everest_applications')
-            .join('everest_teachers', 'everest_teachers.id', '=', 'everest_applications.teacher')
+            .join('everest_teachers', 'everest_teachers.teacher_id', '=', 'everest_applications.teacher')
             .select('*')
-            .join('everest_jobs', 'everest_jobs.id', '=', 'everest_applications.job')
+            .join('everest_jobs', 'everest_jobs.job_id', '=', 'everest_applications.job')
             .select('*')
-            .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
+            .join('everest_schools', 'everest_schools.school_id', '=', 'everest_jobs.schoolid')
     },
     getApplicationsForSchool(db, schoolId) {
         return ApplicationsService.getAllApplications(db)
@@ -23,15 +23,21 @@ const ApplicationsService = {
     getApplicationById(db, applicationId) {
         return db
             .from('everest_applications')
-            .where('everest_applications.id', applicationId)
-            .join('everest_teachers', 'everest_teachers.id', '=', 'everest_applications.teacher')
-            .join('everest_jobs', 'everest_jobs.id', '=', 'everest_applications.job')
-            .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
+            .where('everest_applications.application_id', applicationId)
+            .join('everest_teachers', 'everest_teachers.teacher_id', '=', 'everest_applications.teacher')
+            .join('everest_jobs', 'everest_jobs.job_id', '=', 'everest_applications.job')
+            .join('everest_schools', 'everest_schools.school_id', '=', 'everest_jobs.schoolid')
     },
     toggleAppApproval(db, applicationId, newApplicationField) {
         return db('everest_applications')
-            .where('id', applicationId)
+            .where('application_id', applicationId)
             .update(newApplicationField)
+    },
+    deleteApplication(db, applicationId) {
+        return db('everest_applications')
+            .where('application_id', applicationId)
+            .del()
+            .then(response => ApplicationsService.getAllApplications(db))
     }
 }
 
