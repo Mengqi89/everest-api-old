@@ -28,19 +28,19 @@ const SchoolsService = {
     return knex
       .from('everest_schools')
       .select('*')
-      .where('id', id)
+      .where('school_id', id)
       .first()
   },
 
   deleteSchool(knex, id) {
     return knex('everest_schools')
-      .where({ id })
+      .where('school_id', id)
       .delete()
   },
 
   updateSchool(knex, id, newSchoolFields) {
     return knex('everest_schools')
-      .where({ id })
+      .where('school_id', id)
       .update(newSchoolFields)
   },
   validatePassword(password) {
@@ -63,7 +63,7 @@ const SchoolsService = {
   },
   serializeSchool(school) {
     return {
-      id: school.id,
+      id: school.school_id,
       username: school.username,
       password: school.password,
       school_name: xss(school.school_name),

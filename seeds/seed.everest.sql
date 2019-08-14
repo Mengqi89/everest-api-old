@@ -118,6 +118,52 @@ BEGIN;
       3,
       'Restaurants, shopping, bars',
       false
+    ),
+    (
+      'testSchool2',
+      '$2a$12$KiUL9KVwSLiuUjpbNzSuKe6CfuCeX5xxLssZiGD4l5YyiEWZZfkoi',
+      -- Password1!
+      'Test School 2',
+      'Middle School',
+      1200,
+      true,
+      'AP',
+      'Chengdu',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in suscipit tortor, eu dignissim ante. Nulla fringilla blandit ligula sit amet laoreet. Donec sagittis nisi tortor, a malesuada lacus iaculis eu. In felis est, consectetur a lorem a, efficitur hendrerit orci. Sed nibh tellus, porta id sapien in, gravida pulvinar dui. Maecenas congue dui in ante tincidunt congue. Etiam id blandit ipsum. Cras quis libero rhoncus, gravida nisi id, venenatis sapien. Integer non nunc elit. Proin hendrerit dignissim lacus, at porttitor felis pellentesque in. Donec dictum molestie lectus fringilla egestas. Aliquam erat volutpat. Curabitur ullamcorper dolor non dui accumsan elementum. Curabitur pretium, velit ac volutpat laoreet, lacus sem tempus lectus, vel dignissim nunc leo vel arcu. Morbi quis pretium magna.',
+      'www.google.com',
+      true,
+      'Will help teacher find housing.',
+      '2 Bed/2 Bath',
+      -- true,
+      -- false,
+      'Shared',
+      'Shared living room with 1 other teacher',
+      'Off Campus',
+      '10 minute walk',
+      '10 minute walk to nearest subway stop',
+      false,
+      'No rent',
+      false,
+      'No charge',
+      true,
+      'Queen-size bed, writing desk, six chairs',
+      'Refrigerator, microwave, gas stove, television, air conditioner, washing machine',
+      'Wired and wireless; wireless only; can be installed; no.',
+      'Desktop',
+      true,
+      'Up to ¥1,000,000 annual coverage; no',
+      '¥1,000 deductible',
+      false,
+      false,
+      true,
+      'Yes',
+      true,
+      true,
+      true,
+      true,
+      3,
+      'Restaurants, shopping, bars',
+      false
     );
     
     INSERT INTO everest_jobs
@@ -148,13 +194,43 @@ BEGIN;
     personal_days,
     time_off_for_holidays,
     total_salary,
-    school_id,
+    schoolid,
     job_approved
     )
     VALUES
     (
     'English Instructor',
     'Honors English',
+    '11th grade',
+    NULL,
+    2,
+    6,
+    25,
+    20,
+    'office hours',
+    5,
+    'BA',
+    'MA',
+    1,
+    3,
+    true,
+    'preferred experience teaching abroad',
+    10000,
+    true,
+    true,
+    true,
+    false,
+    false,
+    10,
+    5,
+    false,
+    15000,
+    1,
+    false
+    ),
+    (
+    'Math Instructor',
+    'Honors Math',
     '11th grade',
     NULL,
     2,
@@ -215,7 +291,28 @@ BEGIN;
       29,
       'Female',
       'UK',
-      'Asain',
+      'Asian',
+      'yes',
+      'no',
+      'BA',
+      'English',
+      'Florida State University',
+      'none',
+      '1',
+      '0',
+      '1'
+    ),
+    (
+      false,
+      'NatBowie1',
+      '$2a$12$bS0HJTSC64Znaz.armIYaOr1on3tSZOgMqN9JbbljwdvE96o.B.G2',
+      -- 'Password1!',
+      'Natasha',
+      'Bowie',
+      35,
+      'Female',
+      'UK',
+      'Asian',
       'yes',
       'no',
       'BA',
@@ -237,6 +334,18 @@ VALUES
 (
     1,
     1,
+    1
+),
+(
+    1,
+    2
+),
+(
+    2,
+    2
+),
+(
+    2,
     1
 );
 

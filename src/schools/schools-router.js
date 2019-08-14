@@ -1,39 +1,39 @@
-const path = require('path');
-const express = require('express');
-const xss = require('xss');
-const SchoolsService = require('./schools-service');
-const { requireSchoolAuth } = require('../middleware/jwt-auth');
+const path = require('path')
+const express = require('express')
+const xss = require('xss')
+const SchoolsService = require('./schools-service')
+const { requireSchoolAuth } = require('../middleware/jwt-auth')
 
-const schoolsRouter = express.Router();
-const jsonParser = express.json();
+const schoolsRouter = express.Router()
+const jsonParser = express.json()
 
 schoolsRouter
   .route('/')
   .get((req, res, next) => {
-    const knexInstance = req.app.get('db');
+    const knexInstance = req.app.get('db')
     SchoolsService.getAllSchools(knexInstance)
       .then(schools => {
-        res.json(schools.map(SchoolsService.serializeSchool));
+        res.json(schools.map(SchoolsService.serializeSchool))
       })
-      .catch(next);
+      .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { password, username, school_type, school_name } = req.body;
+    const { password, username, school_type, school_name } = req.body
 
     for (const field of ['school_type', 'username', 'password', 'school_name'])
       if (!req.body[field])
         return res.status(400).json({
           error: `Missing '${field}' in request body`
-        });
+        })
 
-    const passwordError = SchoolsService.validatePassword(password);
+    const passwordError = SchoolsService.validatePassword(password)
 
-    if (passwordError) return res.status(400).json({ error: passwordError });
+    if (passwordError) return res.status(400).json({ error: passwordError })
 
     SchoolsService.hasUsername(req.app.get('db'), username)
       .then(hasUsername => {
         if (hasUsername)
-          return res.status(400).json({ error: `Username already taken` });
+          return res.status(400).json({ error: `Username already taken` })
 
         return SchoolsService.hashPassword(password).then(hashedPassword => {
           const newSchool = {
@@ -47,14 +47,14 @@ schoolsRouter
             school => {
               res
                 .status(201)
-                .location(path.posix.join(req.originalUrl, `/${school.id}`))
-                .json(SchoolsService.serializeSchool(school));
+                .location(path.posix.join(req.originalUrl, `/${school.school_id}`))
+                .json(SchoolsService.serializeSchool(school))
             }
-          );
-        });
+          )
+        })
       })
-      .catch(next);
-  });
+      .catch(next)
+  })
 
 schoolsRouter
   .route('/school/:school_id')
@@ -66,10 +66,10 @@ schoolsRouter
             error: { message: `School doesn't exist` }
           });
         }
-        res.school = school;
-        next();
+        res.school = school
+        next()
       })
-      .catch(next);
+      .catch(next)
   })
   .get((req, res, next) => {
     res.json(SchoolsService.serializeSchool(res.school));
@@ -99,16 +99,15 @@ schoolsRouter
   .route('/school')
   .all(requireSchoolAuth)
   .get((req, res, next) => {
-    // console.log('hello school')
-    const { id } = req.user;
-    SchoolsService.getById(req.app.get('db'), id).then(school => {
+    const { school_id } = req.user
+    SchoolsService.getById(req.app.get('db'), school_id).then(school => {
       if (!school) {
-        res.status(404).json({ error: `School doesn't exist` });
+        res.status(404).json({ error: `School doesn't exist` })
         next();
       } else {
-        res.json(SchoolsService.serializeSchool(school));
+        res.json(SchoolsService.serializeSchool(school))
       }
-    });
-  });
+    })
+  })
 
-module.exports = schoolsRouter;
+module.exports = schoolsRouter

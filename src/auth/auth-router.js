@@ -33,7 +33,7 @@ authRouter
 
           const sub = dbSchool.username;
 
-          const payload = { user_id: dbSchool.id };
+          const payload = { user_id: dbSchool.school_id };
           res.send({
             authToken: AuthService.createJwt(sub, payload)
           });
@@ -44,7 +44,6 @@ authRouter
   .post('/login/admins', jsonBodyParser, (req, res, next) => {
     const { username, password } = req.body;
     const loginAdmin = { username, password };
-    // console.log(loginAdmin)
     for (const [key, value] of Object.entries(loginAdmin))
       if (value == null)
         return res.status(400).json({
@@ -68,7 +67,7 @@ authRouter
             });
 
           const sub = dbAdmin.username;
-          const payload = { user_id: dbAdmin.id };
+          const payload = { user_id: dbAdmin.admin_id };
           res.send({
             authToken: AuthService.createJwt(sub, payload)
           });
@@ -79,19 +78,21 @@ authRouter
   .post('/login/teachers', jsonBodyParser, (req, res, next) => {
     const { username, password } = req.body;
     const loginTeacher = { username, password };
-    // console.log(loginTeacher)
     for (const [key, value] of Object.entries(loginTeacher))
       if (value == null)
         return res.status(400).json({
           error: `Missing '${key}' in request body`
         });
 
-    AuthService.getTeacherUsername(req.app.get('db'), loginTeacher.username)
+    AuthService.getTeacherWithUsername(
+      req.app.get('db'),
+      loginTeacher.username
+    )
       .then(teacher => {
         if (!teacher)
           return res.status(400).json({
-            error: 'Incorrect username or password'
-          });
+            error: 'Incorrect username or password',
+          })
 
         return AuthService.comparePasswords(
           loginTeacher.password,
@@ -102,14 +103,14 @@ authRouter
               error: 'Incorrect username or password'
             });
 
-          const sub = teacher.username;
-          const payload = { user_id: teacher.id };
+          const sub = teacher.username
+          const payload = { user_id: teacher.teacher_id }
           res.send({
             authToken: AuthService.createJwt(sub, payload)
-          });
-        });
+          })
+        })
       })
-      .catch(next);
-  });
+      .catch(next)
+  })
 
 module.exports = authRouter;

@@ -7,7 +7,13 @@ const TeacherService = {
     getById(db, id) {
         return db
             .from('everest_teachers')
-            .where('id', id)
+            .where('teacher_id', id)
+            .first()
+    },
+    getTeacherWithUsername(db, username) {
+        return db
+            .from('everest_teachers')
+            .where({ username })
             .first()
     },
     hasUsername(db, username) {
@@ -24,14 +30,14 @@ const TeacherService = {
     },
     updateTeacher(db, id, updatedTeacher) {
         return db('everest_teachers')
-            .where('id', id)
+            .where('teacher_id', id)
             .update(updatedTeacher)
             .returning('username')
             .then(res => res)
     },
     deleteTeacher(db, id) {
         return db('everest_teachers')
-            .where('id', id)
+            .where('teacher_id', id)
             .del()
     }
 

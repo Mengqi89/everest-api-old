@@ -14,7 +14,7 @@ const AuthService = {
             .where({ username })
             .first()
     },
-    getTeacherUsername(db, username) {
+    getTeacherWithUsername(db, username) {
         return db('everest_teachers')
             .where({ username })
             .first()
