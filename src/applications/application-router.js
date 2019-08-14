@@ -57,5 +57,17 @@ applicationsRouter
         }
 
     })
+    .delete((req, res, next) => {
+        const applicationId = req.params.applicationId
+        console.log(applicationId)
+
+        ApplicationsService.deleteApplication(req.app.get('db'), applicationId)
+            .then(applications => {
+                res
+                    .status(201)
+                    .json(applications)
+            })
+            .catch(next)
+    })
 
 module.exports = applicationsRouter
