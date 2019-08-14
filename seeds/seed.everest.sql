@@ -22,7 +22,8 @@ BEGIN;
     'Mifflin',
     'dunder',
     'wmq516@gmail.com',
-    '!Aa101010'
+    '$2a$12$KiUL9KVwSLiuUjpbNzSuKe6CfuCeX5xxLssZiGD4l5YyiEWZZfkoi'
+      -- Password1!
     );
 
   INSERT INTO everest_schools
@@ -228,11 +229,13 @@ BEGIN;
 
     INSERT INTO everest_applications
 (
-    job,
-    teacher
+    job_id,
+    teacher_id,
+    school_id
 )
 VALUES
 (
+    1,
     1,
     1
 );
