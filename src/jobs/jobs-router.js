@@ -14,10 +14,62 @@ jobsRouter
             .then(jobs => res.json(jobs))
             .catch(next)
         })
-     
     .post(jsonParser, (req, res, next) => {
-        const {job_title, total_salary, course, grade_level} = req.body
-        const newJob = {job_title, total_salary, course, grade_level}
+        const {
+                job_title,
+                course,
+                grade_level,
+                textbook_used,
+                number_of_courses_to_teach,
+                number_of_sections,
+                max_class_size,
+                total_hours_of_class_per_week,
+                extra_duties_required,
+                hours_of_extra_duties_per_week,
+                minimum_degree_required,
+                preferred_degree,
+                minimum_experience_required,
+                preferred_experience_level,
+                native_english_speaker,
+                other_qualification,
+                base_pay_per_month,
+                bonuses,
+                plane_ticket_provided_to_china,
+                plane_ticket_provided_from_china,
+                plane_ticket_reimbursment,
+                paid_time_off,
+                sick_days,
+                personal_days,
+                time_off_for_holidays,
+                total_salary
+            } = req.body
+        const newJob = {
+                job_title,
+                course,
+                grade_level,
+                textbook_used,
+                number_of_courses_to_teach,
+                number_of_sections,
+                max_class_size,
+                total_hours_of_class_per_week,
+                extra_duties_required,
+                hours_of_extra_duties_per_week,
+                minimum_degree_required,
+                preferred_degree,
+                minimum_experience_required,
+                preferred_experience_level,
+                native_english_speaker,
+                other_qualification,
+                base_pay_per_month,
+                bonuses,
+                plane_ticket_provided_to_china,
+                plane_ticket_provided_from_china,
+                plane_ticket_reimbursment,
+                paid_time_off,
+                sick_days,
+                personal_days,
+                time_off_for_holidays,
+                total_salary}
         
           for (const [key, value] of Object.entries(newJob))
             if (value === '')
