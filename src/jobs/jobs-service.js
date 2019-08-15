@@ -1,6 +1,10 @@
 const JobsService = {
     getAllJobs(knex) {
-        return knex.from('everest_jobs').select('*')
+        return knex.from('everest_jobs')
+            .select('*')
+            .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
+            .select('location')
+            
     },
     insertJob(knex, newJob) {
         return knex.insert(newJob)
@@ -57,7 +61,8 @@ const JobsService = {
             sick_days: job.sick_days,
             personal_days: job.personal_days,
             time_off_for_holidays: job.time_off_for_holidays,
-            total_salary: job.total_salary
+            total_salary: job.total_salary,
+            location: job.location
         }
     }
 }
