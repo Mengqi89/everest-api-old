@@ -194,7 +194,7 @@ BEGIN;
     personal_days,
     time_off_for_holidays,
     total_salary,
-    schoolid,
+    school_id,
     job_approved
     )
     VALUES
@@ -336,16 +336,19 @@ VALUES
     1,
     1
 ),
-(
+( 
     1,
-    2
+    2,
+    1
 ),
 (
     2,
-    2
+    2,
+    1
 ),
 (
     2,
+    1,
     1
 );
 

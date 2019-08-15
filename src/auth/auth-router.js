@@ -33,7 +33,7 @@ authRouter
 
           const sub = dbSchool.username;
 
-          const payload = { user_id: dbSchool.school_id };
+          const payload = { user_id: dbSchool.id };
           res.send({
             authToken: AuthService.createJwt(sub, payload)
           });
@@ -67,7 +67,7 @@ authRouter
             });
 
           const sub = dbAdmin.username;
-          const payload = { user_id: dbAdmin.admin_id };
+          const payload = { user_id: dbAdmin.id };
           res.send({
             authToken: AuthService.createJwt(sub, payload)
           });
@@ -104,7 +104,7 @@ authRouter
             });
 
           const sub = teacher.username
-          const payload = { user_id: teacher.teacher_id }
+          const payload = { user_id: teacher.id }
           res.send({
             authToken: AuthService.createJwt(sub, payload)
           })
