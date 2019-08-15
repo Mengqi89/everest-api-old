@@ -20,6 +20,7 @@ const ApplicationsService = {
           'teachers.last_name as teacher_last',
           'teachers.id as teacher_id'
         )
+        .select('*')
         .innerJoin('everest_schools as schools', 'apps.school_id', 'schools.id')
         .innerJoin('everest_jobs as jobs', 'apps.job_id', 'jobs.id')
         .innerJoin(
@@ -43,6 +44,7 @@ const ApplicationsService = {
         'teachers.last_name as teacher_last',
         'teachers.id as teacher_id'
       )
+      .select('*')
       .innerJoin('everest_schools as schools', 'apps.school_id', 'schools.id')
       .innerJoin('everest_jobs as jobs', 'apps.job_id', 'jobs.id')
       .innerJoin(
@@ -51,6 +53,30 @@ const ApplicationsService = {
         'teachers.id'
       )
       .where('schools.id', schoolId);
+  },
+  getApplicationsForTeacher(db, teacherId) {
+    return db
+      .from('everest_applications as apps')
+      .select(
+        'apps.id as app_id',
+        'apps.job_id as app_job',
+        'apps.school_id as app_school',
+        'schools.school_name',
+        'jobs.id as job_id',
+        'jobs.job_title as job_title',
+        'teachers.first_name as teacher_first',
+        'teachers.last_name as teacher_last',
+        'teachers.id as teacher_id'
+      )
+      .select('*')
+      .innerJoin('everest_schools as schools', 'apps.school_id', 'schools.id')
+      .innerJoin('everest_jobs as jobs', 'apps.job_id', 'jobs.id')
+      .innerJoin(
+        'everest_teachers as teachers',
+        'apps.teacher_id',
+        'teachers.id'
+      )
+      .where('teachers.id', teacherId);
   },
   getApplicationById(db, applicationId) {
     return db
@@ -66,6 +92,7 @@ const ApplicationsService = {
         'teachers.last_name as teacher_last',
         'teachers.id as teacher_id'
       )
+      .select('*')
       .innerJoin('everest_schools as schools', 'apps.school_id', 'schools.id')
       .innerJoin('everest_jobs as jobs', 'apps.job_id', 'jobs.id')
       .innerJoin(

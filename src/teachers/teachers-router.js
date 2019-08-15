@@ -12,8 +12,19 @@ teacherRouter
             .then(teachers => res.json(teachers))
             .catch(next)
     })
-    .get('/teacher', requireTeacherAuth)
-    .get('teacher/:teacherId', requireAdminAuth, (req, res, next) => {
+    .get('/teacher', requireTeacherAuth, (req, res, next) => {
+        const { id } = req.user
+        TeacherService.getById(req.app.get('db'), id)
+            .then(teacher => {
+                if (!teacher) {
+                    res.status.json({ error: `Teacher does't exist` })
+                    next()
+                } else (
+                    res.json(teacher)
+                )
+            })
+    })
+    .get('/teacher/:teacherId', requireAdminAuth, (req, res, next) => {
         const { teacherId } = req.params
         TeacherService.getById((req.app.get('db')), teacherId)
             .then(teacher => {

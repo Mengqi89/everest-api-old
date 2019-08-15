@@ -44,12 +44,22 @@ applicationsRouter.route('/school').get(requireSchoolAuth, (req, res, next) => {
     .catch(next);
 });
 
+applicationsRouter.route('/teacher').get(requireTeacherAuth, (req, res, next) => {
+  const { id } = req.user;
+  ApplicationsService.getApplicationsForTeacher(req.app.get('db'), id)
+    .then(applications => res.json(applications))
+    .catch(next);
+});
+
+
 applicationsRouter
   .route('/:applicationId')
   .get((req, res, next) => {
     const { applicationId } = req.params;
     ApplicationsService.getApplicationById(req.app.get('db'), applicationId)
-      .then(application => res.json(application))
+      .then(application =>
+        res.json(application)
+      )
       .catch(next);
   })
   .patch((req, res, next) => {

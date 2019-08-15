@@ -1,5 +1,5 @@
 CREATE TABLE everest_jobs (
-    job_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     job_title TEXT NOT NULL,
     course TEXT NOT NULL,
     grade_level TEXT NOT NULL,
