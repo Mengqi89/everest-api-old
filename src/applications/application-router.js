@@ -1,17 +1,16 @@
 const express = require('express');
 const path = require('path');
 const ApplicationsService = require('./application-service');
-const { requireSchoolAuth } = require('../middleware/jwt-auth');
+const { requireSchoolAuth, requireTeacherAuth } = require('../middleware/jwt-auth');
 
 const applicationsRouter = express.Router();
 const jsonBodyParser = express.json();
 
-applicationsRouter.route('/').post(jsonBodyParser, (req, res, next) => {
-  console.log(req.body);
+applicationsRouter.route('/').post(jsonBodyParser, requireTeacherAuth, (req, res, next) => {
   const newApplication = {
     job_id: req.body.job_id,
     school_id: req.body.school_id,
-    teacher_id: req.body.teacher_id
+    // teacher_id: req.body.teacher_id
   };
 
   for (const [key, value] of Object.entries(newApplication))
@@ -19,6 +18,8 @@ applicationsRouter.route('/').post(jsonBodyParser, (req, res, next) => {
       return res.status(400).json({
         error: `Missing '${key}' in request body`
       });
+
+  newApplication.teacher_id = req.user.teacher_id
 
   ApplicationsService.insertApplication(req.app.get('db'), newApplication).then(
     application => {

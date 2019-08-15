@@ -26,6 +26,6 @@ CREATE TABLE everest_jobs (
     personal_days INTEGER,
     time_off_for_holidays BOOLEAN,
     total_salary INTEGER NOT NUll,
-    schoolid INTEGER REFERENCES everest_schools(school_id),
+    job_school_id INTEGER REFERENCES everest_schools(school_id),
     job_approved BOOLEAN NOT NULL DEFAULT false
 );

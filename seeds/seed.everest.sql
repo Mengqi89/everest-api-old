@@ -194,7 +194,7 @@ BEGIN;
     personal_days,
     time_off_for_holidays,
     total_salary,
-    schoolid,
+    job_school_id,
     job_approved
     )
     VALUES
@@ -338,61 +338,18 @@ VALUES
 ),
 (
     1,
-    2
+    2,
+    1
 ),
 (
     2,
-    2
+    2,
+    1
 ),
 (
     2,
+    1,
     1
 );
 
-  -- INSERT INTO everest_schools
-  -- (
-  --   schoolName,
-  --   schoolType,
-  --   schoolSize,
-  --   publicOrPrivate,
-  --   curriculum,
-  --   location,
-  --   notableFacts,
-  --   schoolWebsite,
-  --   apartmentProvided,
-  --   schoolProvideHealthInsurance,
-  --   disabilityInsurance,
-  --   otherInsurance,
-  --   assistanceObtainingWorkVisa,
-  --   schoolPayWorkVisa,
-  --   schoolReimburseCostsForObtainingVisaInUs,
-  --   assistanceOpeningChineseBankAccount,
-  --   assistanceShoppingAndSettlingIn,
-  --   organizedTripsForTeachers,
-  --   otherWesternTeachersAtSchool,
-  --   westernAmenitiesAvailableNearSchoolTown,
-  -- )
-  -- VALUES
-  -- (
-  --   'Test School 2',
-  --   'High School',
-  --   500,
-  --   false,
-  --   'IGCSE',
-  --   'Sichuan',
-  --   'Maecenas pharetra libero at metus mattis blandit et eu urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean iaculis, purus in ultrices tempus, augue elit ultrices odio, eget tempus dui neque scelerisque nibh. Phasellus egestas eros congue posuere vehicula. Quisque eu urna magna. Donec eget nisl vel est lacinia malesuada. Phasellus porta dignissim nisl, id ultricies leo consequat non. Mauris in purus tortor. In ullamcorper suscipit efficitur. Donec eget libero laoreet, condimentum tellus sed, cursus tortor.',
-  --   'www.facebook.com',
-  --   false,
-  --   false,
-  --   false,
-  --   false,
-  --   true,
-  --   'Yes',
-  --   true,
-  --   true,
-  --   true,
-  --   true,
-  --   4,
-  --   'Restaurants, shopping, bars'
-  -- );
   COMMIT;

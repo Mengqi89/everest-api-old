@@ -39,7 +39,7 @@ function requireSchoolAuth(req, res, next) {
 
   try {
     const payload = AuthService.verifyJwt(bearerToken)
-    console.log(payload)
+    // console.log(payload)
     AuthService.getSchoolUsername(
       req.app.get('db'),
       payload.sub,
@@ -47,9 +47,9 @@ function requireSchoolAuth(req, res, next) {
       .then(user => {
         if (!user)
           return res.status(401).json({ error: 'Unauthorized request' })
-        console.log('hello2')
+        // console.log('hello2')
         req.user = user
-        console.log(user)
+        // console.log(user)
         next()
       })
       .catch(err => {
@@ -80,7 +80,8 @@ function requireTeacherAuth(req, res, next) {
         if (!user)
           return res.status(401).json({ error: 'Unauthorized request' })
         req.user = user
-        res.json(user)
+        // res.json(user)
+        next()
       })
       .catch(err => {
         next(err)
