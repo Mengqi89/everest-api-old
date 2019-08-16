@@ -2,9 +2,9 @@ const JobsService = {
     getAllJobs(knex) {
         return knex.from('everest_jobs')
             .select('*')
-            .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.school_id')
+            .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.job_school_id')
             .select('location')
-            
+
     },
     insertJob(knex, newJob) {
         return knex.insert(newJob)
