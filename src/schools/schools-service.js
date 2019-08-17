@@ -28,7 +28,7 @@ const SchoolsService = {
     return knex
       .from('everest_schools')
       .select('*')
-      .where('id', id)
+      .where('school_id', id)
       .first()
   },
 
@@ -63,7 +63,7 @@ const SchoolsService = {
   },
   serializeSchool(school) {
     return {
-      id: school.id,
+      school_id: school.school_id,
       username: school.username,
       password: school.password,
       school_name: xss(school.school_name),
