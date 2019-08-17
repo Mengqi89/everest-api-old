@@ -1,7 +1,7 @@
 const JobsService = {
     getAllJobs(knex) {
         return knex.from('everest_jobs')
-            .select('*')
+            .select('*', 'everest_jobs.id')
             .join('everest_schools', 'everest_schools.id', '=', 'everest_jobs.job_school_id')
             .select('location')
 
@@ -36,7 +36,7 @@ const JobsService = {
 
     serializeJob(job) {
         return {
-            job_id: job.job_id,
+            job_id: job.id,
             school_id: job.job_school_id,
             job_title: job.job_title,
             course: job.course,
