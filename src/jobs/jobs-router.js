@@ -83,7 +83,7 @@ jobsRouter
             newJob
         ).then(job => {
             res.status(201)
-            .location(path.posix.join(req.originalUrl, `/${job.id}`))
+            .location(path.posix.join(req.originalUrl, `/${job_id}`))
             .json(JobsService.serializeJob(job))
         })
         .catch(next)
