@@ -71,7 +71,8 @@ jobsRouter
                 personal_days,
                 time_off_for_holidays,
                 total_salary,
-                job_school_id}
+                job_school_id
+            }
         
           for (const [key, value] of Object.entries(newJob))
             if (value === '')

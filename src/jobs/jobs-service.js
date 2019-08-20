@@ -37,7 +37,7 @@ const JobsService = {
     serializeJob(job) {
         return {
             job_id: job.id,
-            job_school_id: job.job_school_id,
+            school_id: job.job_school_id,
             job_title: job.job_title,
             course: job.course,
             grade_level: job.grade_level,
