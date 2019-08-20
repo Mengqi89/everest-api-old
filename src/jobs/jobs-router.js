@@ -41,7 +41,8 @@ jobsRouter
                 sick_days,
                 personal_days,
                 time_off_for_holidays,
-                total_salary
+                total_salary,
+                job_school_id
             } = req.body
         const newJob = {
                 job_title,
@@ -69,7 +70,9 @@ jobsRouter
                 sick_days,
                 personal_days,
                 time_off_for_holidays,
-                total_salary}
+                total_salary,
+                job_school_id
+            }
         
           for (const [key, value] of Object.entries(newJob))
             if (value === '')
@@ -78,12 +81,12 @@ jobsRouter
                 })
 
 
-        JobsService.insertJob(
+        return JobsService.insertJob(
             req.app.get('db'),
             newJob
         ).then(job => {
             res.status(201)
-            .location(path.posix.join(req.originalUrl, `/${job_id}`))
+            // .location(path.posix.join(req.originalUrl, `/${job_id}`))
             .json(JobsService.serializeJob(job))
         })
         .catch(next)
