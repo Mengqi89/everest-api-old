@@ -10,7 +10,7 @@ applicationsRouter.route('/').post(jsonBodyParser, requireTeacherAuth, (req, res
   const newApplication = {
     job_id: req.body.job_id,
     school_id: req.body.school_id,
-    // teacher_id: req.body.teacher_id
+    
   };
 
   for (const [key, value] of Object.entries(newApplication))
@@ -19,7 +19,7 @@ applicationsRouter.route('/').post(jsonBodyParser, requireTeacherAuth, (req, res
         error: `Missing '${key}' in request body`
       });
 
-  newApplication.teacher_id = req.user.teacher_id
+  newApplication.teacher_id = req.user.id
 
   ApplicationsService.insertApplication(req.app.get('db'), newApplication).then(
     application => {

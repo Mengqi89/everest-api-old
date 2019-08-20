@@ -120,11 +120,28 @@ teacherRouter
             .catch(next)
     })
     .patch('/teacher/:teacherId', (req, res, next) => {
+        console.log('patch ran')
+        //need to hash password
         const { teacherId } = req.params
         const newTeacher = newTeacherFn(req)
-        TeacherService.updateTeacher((req.app.get('db')), teacherId, newTeacher)
-            .then(updatedTeacher => res.json(updatedTeacher))
-            .catch(next)
+        const { password } = req.body
+
+        const passwordError = SchoolsService.validatePassword(password)
+
+        if (passwordError) {
+            return res.status(404).json(passwordError)
+        }
+
+        SchoolsService.hashPassword(password)
+            .then(hashedPassword => {
+                newTeacher.password = hashedPassword
+
+                TeacherService.updateTeacher((req.app.get('db')), teacherId, newTeacher)
+                    .then(updatedTeacher => res.json(updatedTeacher))
+                    .catch(next)
+            })
+
+
     })
     .delete('/:teacherId', (req, res, next) => {
         const { teacherId } = req.params
@@ -143,7 +160,6 @@ teacherRouter
 function newTeacherFn(req) {
     return ({
         username,
-        password,
         first_name,
         last_name,
         age,
