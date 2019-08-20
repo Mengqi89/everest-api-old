@@ -1,26 +1,81 @@
-# Express Boilerplate!
+# Everest Api
 
-This is a boilerplate project used for starting new projects!
 
-## Set up
+> Everest is an application for a client (Everest Internatoinal Education) to handle applicants for teaching at schools in China. It has three types of main users, applicants/teachers, job posters/schools, and company/admins.
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+---
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+[Live link to Everest International Education](https://everest-app.everest.now.sh/)
 
-## Scripts
+[Api Link](https://stormy-anchorage-71465.herokuapp.com/api)
 
-Start the application `npm start`
+### Api
+```
+├── /auth
+│   └── POST
+│       ├── /login/schools
+|       ├── /login/admins
+|       ├── /login/teachers
+├── /admins
+│   └── GET /
+│       ├── /admin/:id
+│       └── /admin
+│   └── POST
+│        └── /
+│   └── PATCH
+|        └── /admin/:id
+│   └── DELETE
+|       └── /admin/:id
+├── /schools
+│   └── GET
+│       ├── /
+│       ├── /school
+│       └── /school/:school_id
+│   └── POST
+│       └── /
+│   └── PATCH
+│       └── /school/:school_id
+│   └── DELETE
+|       └── /school/:school_id
+├── /teachers
+│   └── GET
+│       └── /
+│       └── /teacher
+│       └── /teacher/:teacherId
+│   └── POST
+│       └── /
+│   └── PATCH
+│       └── /teacher/:teacherId
+│   └── DELETE
+│       └── /:teacherId
+├── /aplications
+│   └── GET
+│       └── /:applicationId
+│   └── POST
+│       └── /
+│   └── PATCH
+│       └── /:applicationId
+│   └── DELETE
+│       └── /:applicationId
+├── /jobs
+│   └── GET
+│       ├── /
+│       └── /:job_id
+│   └── POST
+│       └── /
+│   └── PATCH
+│       └── /:jobId
+│   └── DELETE
+|       └── /:jobId
 
-Start nodemon for the application `npm run dev`
+```
 
-Run the tests `npm test`
+## Team
 
-## Deploying
+- **[Mengqi Wang](https://github.com/megnqi89)** - Project Manager, Developer
+- **[Kyler Renneker](https://github.com/kylerRenneker)** - QA Lead, Developer
+- **[Samantha Ambroise](https://github.com/sam-ilki)** - Program Manager, Developer
+- **[Natalie Sun](https://github.com/nataliesun)** - Design Lead, Developer
+---
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+[Everest Client](https://github.com/Mengqi89/everest-client)
