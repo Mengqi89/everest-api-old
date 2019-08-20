@@ -1,7 +1,7 @@
 # Everest Api
 
 
-> Everest is an application for a client (Everest Internatoinal Education) to handle applicants for teaching at schools in China. It has three types of main users, applicants/teachers, job posters/schools, and company/admins.
+> Everest is an application for a client (Everest International Education) to handle applicants for teaching at schools in China. It has three types of main users, applicants/teachers, job posters/schools, and company/admins.
 
 ---
 
