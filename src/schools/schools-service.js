@@ -28,7 +28,7 @@ const SchoolsService = {
     return knex
       .from('everest_schools')
       .select('*')
-      .where('id', id)
+      .where('school_id', id)
       .first()
   },
 
@@ -40,7 +40,7 @@ const SchoolsService = {
 
   updateSchool(knex, id, newSchoolFields) {
     return knex('everest_schools')
-      .where('id', id)
+      .where('school_id', id)
       .update(newSchoolFields)
   },
   validatePassword(password) {
@@ -62,8 +62,19 @@ const SchoolsService = {
     return bcrypt.hash(password, 12)
   },
   serializeSchool(school) {
+    let complete = true
+    Object.keys(school).forEach(key => {
+      if (school[key] == null) {
+        complete = false
+      } else if (typeof school[key] === "string") {
+        if (school[key].trim() === "") {
+          complete = false
+        }
+      }
+    })
     return {
-      id: school.id,
+      complete,
+      school_id: school.school_id,
       username: school.username,
       password: school.password,
       school_name: xss(school.school_name),

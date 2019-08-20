@@ -99,8 +99,10 @@ schoolsRouter
   .route('/school')
   .all(requireSchoolAuth)
   .get((req, res, next) => {
-    const { id } = req.user
-    SchoolsService.getById(req.app.get('db'), id).then(school => {
+    // console.log(req.user)
+    const { school_id } = req.user
+    // console.log(id)
+    SchoolsService.getById(req.app.get('db'), school_id).then(school => {
       if (!school) {
         res.status(404).json({ error: `School doesn't exist` })
         next();
