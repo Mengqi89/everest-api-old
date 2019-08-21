@@ -28,7 +28,7 @@ const SchoolsService = {
     return knex
       .from('everest_schools')
       .select('*')
-      .where('school_id', id)
+      .where('id', id)
       .first()
   },
 
@@ -40,7 +40,7 @@ const SchoolsService = {
 
   updateSchool(knex, id, newSchoolFields) {
     return knex('everest_schools')
-      .where('school_id', id)
+      .where('id', id)
       .update(newSchoolFields)
   },
   validatePassword(password) {
@@ -74,7 +74,7 @@ const SchoolsService = {
     })
     return {
       complete,
-      school_id: school.school_id,
+      id: school.id,
       username: school.username,
       password: school.password,
       school_name: xss(school.school_name),
