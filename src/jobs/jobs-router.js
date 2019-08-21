@@ -73,7 +73,7 @@ jobsRouter
             total_salary,
             job_school_id
         }
-        console.log('request body', req.body)
+
         for (const [key, value] of Object.entries(newJob))
             if (value === '')
                 return res.status(400).json({
