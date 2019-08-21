@@ -13,6 +13,9 @@
     "predeploy": "npm audit && npm run migrate-production"
   },
   "keywords": [],
+  "engines": {
+    "node": "11.10.1"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
