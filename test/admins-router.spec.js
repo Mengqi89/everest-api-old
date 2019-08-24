@@ -7,10 +7,15 @@ describe('Admins Endpoints', function () {
     let db
 
     const testAdminUsers = makeAdminArray()
-    const testAdmin = testAdminUsers[0]
-    testAdmin.permission = 'permission'
-    console.log(testAdmin)
-    console.log(testAdminUsers)
+    const testAdmin = {
+        'id': 1,
+        'first_name': 'test1',
+        'last_name': 'test1',
+        'username': 'test1',
+        'email': 'test1@test.net',
+        'password': '!wW101010',
+        'permission': 'permission'
+    }
 
     before('make knex instance', () => {
         db = knex({
@@ -36,6 +41,7 @@ describe('Admins Endpoints', function () {
         })
 
         context('Given there are admins', () => {
+            console.log(testAdminUsers)
             beforeEach('insert admins', () => seedAdminUsers(
                 db,
                 testAdminUsers
