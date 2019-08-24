@@ -7,6 +7,10 @@ describe('Admins Endpoints', function () {
     let db
 
     const testAdminUsers = makeAdminArray()
+    const testAdmin = testAdminUsers[0]
+    testAdmin.permission = 'permission'
+    console.log(testAdmin)
+    console.log(testAdminUsers)
 
     before('make knex instance', () => {
         db = knex({
@@ -36,7 +40,7 @@ describe('Admins Endpoints', function () {
                 db,
                 testAdminUsers
             ))
-            it('responds with 200 and all the admins', () => {
+            it('responds with 200 and an array with all the admins', () => {
                 return supertest(app)
                     .get('/api/admins')
                     .expect(200)
@@ -46,6 +50,16 @@ describe('Admins Endpoints', function () {
                         expect(admin).to.include.all.keys('id', 'first_name', 'last_name', 'username', 'email', 'password', 'date_created', 'date_modified')
                     })
             })
+        })
+    })
+
+    describe('POST /api/admins', () => {
+
+        it('responds with 200 and the new admin', () => {
+            return supertest(app)
+                .post('/api/admins')
+                .send(testAdmin)
+                .expect(201)
         })
     })
 })
