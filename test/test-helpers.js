@@ -173,6 +173,7 @@ function seedAdminUsers(db, users) {
         ...user,
         password: bcrypt.hashSync(user.password, 1)
     }))
+    console.log(preppedUsers)
     return db
         .into('everest_admins')
         .insert(preppedUsers)

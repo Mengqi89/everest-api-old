@@ -10,7 +10,7 @@ adminsRouter
     .get((req, res, next) => {
         AdminsService.getAllAdmins(req.app.get('db'))
             .then(admins => admins.map(admin => AdminsService.serializeAdmin(admin)))
-            .then(admins => res.json(admins))
+            .then(admins => res.status(200).json(admins))
             .catch(next)
     })
     .post((req, res, next) => {
