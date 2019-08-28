@@ -34,13 +34,13 @@ const AdminsService = {
         return db('everest_admins')
             .where('id', id)
             .update(newAdminFields)
-            .then(response => AdminsService.getAdminById(db, id))
+            .then(res => AdminsService.getAdminById(db, id))
     },
     deleteAdmin(db, id) {
         return db('everest_admins')
             .where('id', id)
             .del()
-            .then(response => AdminsService.getAllAdmins(db))
+            .then(res => AdminsService.getAllAdmins(db))
     },
     validatePassword(password) {
         if (password.length < 8) {
