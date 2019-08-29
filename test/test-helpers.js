@@ -71,8 +71,8 @@ function makeSchoolArray() {
     return [
         {
             id: 1,
-            username: 'TestSchool1',
-            password: 'passwordTestSchool1',
+            username: 'testSchool1',
+            password: 'Password1!',
             school_name: 'Test School 1',
             school_type: 'Middle School',
             school_size: 1300,
@@ -119,8 +119,8 @@ function makeSchoolArray() {
         },
         {
             id: 2,
-            username: 'TestSchool2',
-            password: 'passwordTestSchool2',
+            username: 'testSchool2',
+            password: 'Password1!',
             school_name: 'Test School 2',
             school_type: 'Middle School',
             school_size: 2300,
@@ -166,6 +166,15 @@ function makeSchoolArray() {
                 'Restaurants, shopping, bars'
         }
     ]
+}
+
+function makeNewSchool() {
+    return {
+        username: 'newschool',
+        password: 'Password1!',
+        school_type: 'Private',
+        school_name: 'New School'
+    }
 }
 
 function makeJobArray() {
@@ -290,5 +299,6 @@ module.exports = {
     seedTeacherUsers,
     makeSchoolArray,
     seedSchoolUsers,
-    makeJobArray
+    makeJobArray,
+    makeNewSchool
 }
