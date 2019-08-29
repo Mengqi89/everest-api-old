@@ -244,6 +244,25 @@ function makeJobArray() {
     ]
 }
 
+function makeApplicationArray() {
+    return [
+        {
+            id: 1,
+            job_id: 1,
+            teacher_id: 1,
+            school_id: 1,
+            application_approved: false
+        },
+        {
+            id: 2,
+            job_id: 2,
+            teacher_id: 2,
+            school_id: 2,
+            application_approved: true
+        }
+    ]
+}
+
 function seedAdminUsers(db, users) {
     const preppedUsers = users.map(user => ({
         ...user,
@@ -300,5 +319,6 @@ module.exports = {
     makeSchoolArray,
     seedSchoolUsers,
     makeJobArray,
-    makeNewSchool
+    makeNewSchool,
+    makeApplicationArray
 }

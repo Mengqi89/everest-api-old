@@ -2,6 +2,7 @@ const knex = require('knex')
 const bcrypt = require('bcryptjs')
 const app = require('../src/app')
 const { makeAdminArray, seedAdminUsers } = require('./test-helpers')
+const { authToken_Admin } = require('../src/config')
 
 describe('Admins Endpoints', function () {
     let db
@@ -167,7 +168,7 @@ describe('Admins Endpoints', function () {
         ))
 
         it('responds with 200 and the current admin profile', () => {
-            const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1NjcwMjk4MjIsInN1YiI6InRlc3QxIn0.Hn9oCoUWAdS9ik_pm95uKVi6IMVLifJ24qYNTL1WhRU'
+            const authToken = authToken_Admin
             return supertest(app)
                 .get('/api/admins/admin')
                 .set('Authorization', 'bearer ' + authToken)

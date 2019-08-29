@@ -1,6 +1,7 @@
 const knex = require('knex')
 const app = require('../src/app')
 const { makeSchoolArray, makeNewSchool, seedSchoolUsers } = require('./test-helpers')
+const { authToken_School } = require('../src/config')
 
 describe('Schools Endpoints', () => {
     let db
@@ -152,7 +153,7 @@ describe('Schools Endpoints', () => {
         ))
 
         it('responds with 200 and the current school profile', () => {
-            const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1NjcxMDA0ODMsInN1YiI6InRlc3RTY2hvb2wxIn0.6q8YGElFGi9HVK_BqL0pjMe7l9bSEoyFJW4jx_YY6wM'
+            const authToken = authToken_School
             return supertest(app)
                 .get('/api/schools/school')
                 .set('Authorization', 'bearer ' + authToken)
