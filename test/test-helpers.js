@@ -85,7 +85,7 @@ function makeSchoolArray() {
             apartment_provided: true,
             housing_assistance: 'Will help teacher find housing.',
             size_of_housing: '2 Bed/2 Bath',
-            // "shared_room": true,
+            // 'shared_room": true,
             // "private_room": false,
             shared_or_private_living_space: 'Shared',
             housing_notes: 'Shared living room with 1 other teacher',
@@ -168,6 +168,73 @@ function makeSchoolArray() {
     ]
 }
 
+function makeJobArray() {
+    return [
+        {
+            id: 1,
+            job_title: 'English Instructor',
+            course: 'Honors English',
+            grade_level: '11th grade',
+            textbook_used: null,
+            number_of_courses_to_teach: 2,
+            number_of_sections: 6,
+            max_class_size: 25,
+            total_hours_of_class_per_week: 20,
+            extra_duties_required: 'office hours',
+            hours_of_extra_duties_per_week: 5,
+            minimum_degree_required: 'BA',
+            preferred_degree: 'MA',
+            minimum_experience_required: 1,
+            preferred_experience_level: 3,
+            native_english_speaker: true,
+            other_qualification: 'preferred experience teaching abroad',
+            base_pay_per_month: 10000,
+            bonuses: true,
+            plane_ticket_provided_to_china: true,
+            plane_ticket_provided_from_china: true,
+            plane_ticket_reimbursment: false,
+            paid_time_off: false,
+            sick_days: 10,
+            personal_days: 5,
+            time_off_for_holidays: false,
+            total_salary: 15000,
+            job_school_id: 1,
+            job_approved: true
+        },
+        {
+            id: 2,
+            job_title: 'English Instructor',
+            course: 'Honors English',
+            grade_level: '11th grade',
+            textbook_used: null,
+            number_of_courses_to_teach: 2,
+            number_of_sections: 6,
+            max_class_size: 25,
+            total_hours_of_class_per_week: 20,
+            extra_duties_required: 'office hours',
+            hours_of_extra_duties_per_week: 5,
+            minimum_degree_required: 'BA',
+            preferred_degree: 'MA',
+            minimum_experience_required: 1,
+            preferred_experience_level: 3,
+            native_english_speaker: true,
+            other_qualification: 'preferred experience teaching abroad',
+            base_pay_per_month: 10000,
+            bonuses: true,
+            plane_ticket_provided_to_china: true,
+            plane_ticket_provided_from_china: true,
+            plane_ticket_reimbursment: false,
+            paid_time_off: false,
+            sick_days: 10,
+            personal_days: 5,
+            time_off_for_holidays: false,
+            total_salary: 15000,
+            job_school_id: 2,
+            job_approved: true
+        }
+    ]
+}
+
 function seedAdminUsers(db, users) {
     const preppedUsers = users.map(user => ({
         ...user,
@@ -222,5 +289,6 @@ module.exports = {
     makeTeacherArray,
     seedTeacherUsers,
     makeSchoolArray,
-    seedSchoolUsers
+    seedSchoolUsers,
+    makeJobArray
 }

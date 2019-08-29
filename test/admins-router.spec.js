@@ -7,10 +7,6 @@ describe('Admins Endpoints', function () {
     let db
 
     const testAdminUsers = makeAdminArray()
-    const loggedInAdmin = {
-        username: 'test1',
-        password: '!wW101010'
-    }
     const testAdmin = {
         first_name: 'test1',
         last_name: 'test1',
@@ -169,17 +165,6 @@ describe('Admins Endpoints', function () {
             db,
             testAdminUsers
         ))
-
-        // it('should require authorization', () => {
-        //     return supertest(app)
-        //         .post('/api/auth/login/admins')
-        //         .send(loggedInAdmin)
-        //         .expect(200)
-        //         .then(res => {
-        //             const { authToken } = res.body
-        //             console.log(authToken)
-        //         })
-        // })
 
         it('responds with 200 and the current admin profile', () => {
             const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE1NjcwMjk4MjIsInN1YiI6InRlc3QxIn0.Hn9oCoUWAdS9ik_pm95uKVi6IMVLifJ24qYNTL1WhRU'
