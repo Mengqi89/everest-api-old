@@ -28,7 +28,7 @@ describe('Schools Endpoints', () => {
         context('Given there are no schools', () => {
             it('responds with 200 and an empty array', () => {
                 return supertest(app)
-                    .get('/api/jobs')
+                    .get('/api/schools')
                     .expect(200, [])
             })
         })
@@ -127,7 +127,7 @@ describe('Schools Endpoints', () => {
             })
         })
 
-        context('Given there are jobs', () => {
+        context('Given there are schools', () => {
             beforeEach('insert schools', () => {
                 return db
                     .into('everest_schools')

@@ -24,13 +24,13 @@ teacherRouter
                 )
             })
     })
-    .get('/teacher/:teacherId', requireAdminAuth, (req, res, next) => {
-        const { teacherId } = req.params
-        TeacherService.getById((req.app.get('db')), teacherId)
+    .get('/teacher/:teacher_id', requireAdminAuth, (req, res, next) => {
+        const { teacher_id } = req.params
+        TeacherService.getById((req.app.get('db')), teacher_id)
             .then(teacher => {
                 if (!teacher) {
                     res.status(404).json({
-                        error: 'Teacher not found'
+                        error: `Teacher doesn't exist`
                     })
                 }
                 res.json(teacher)
@@ -114,15 +114,14 @@ teacherRouter
 
                         }
                         return TeacherService.insertTeacher((req.app.get('db')), newTeacher)
-                            .then(teacher => res.json(teacher))
+                            .then(teacher => res.status(201).json(teacher))
                     })
             })
             .catch(next)
     })
-    .patch('/teacher/:teacherId', (req, res, next) => {
-        console.log('patch ran')
+    .patch('/teacher/:teacher_id', (req, res, next) => {
         //need to hash password
-        const { teacherId } = req.params
+        const { teacher_id } = req.params
         const newTeacher = newTeacherFn(req)
         const { password } = req.body
 
@@ -136,23 +135,30 @@ teacherRouter
             .then(hashedPassword => {
                 newTeacher.password = hashedPassword
 
-                TeacherService.updateTeacher((req.app.get('db')), teacherId, newTeacher)
-                    .then(updatedTeacher => res.json(updatedTeacher))
+                TeacherService.updateTeacher((req.app.get('db')), teacher_id, newTeacher)
+                    .then(updatedTeacher => {
+                        if (!updatedTeacher) {
+                            return res.status(404).json({ error: `Teacher doesn't exist` })
+                        } else {
+                            return res.status(200).json(updatedTeacher)
+                        }
+                    })
                     .catch(next)
             })
 
 
     })
-    .delete('/:teacherId', (req, res, next) => {
-        const { teacherId } = req.params
-        TeacherService.deleteTeacher((req.app.get('db')), teacherId)
-            .then(row => {
-                if (row === 0) {
-                    res.status(404).json({
-                        error: 'unable to delete teacher, teacher not found'
+    .delete('/:teacher_id', (req, res, next) => {
+        const { teacher_id } = req.params
+        TeacherService.deleteTeacher((req.app.get('db')), teacher_id)
+            .then(numRowsAffected => {
+                if (numRowsAffected === 0) {
+                    return res.status(404).json({
+                        error: `Teacher doesn't exist`
                     })
+                } else {
+                    return res.status(200).json(numRowsAffected)
                 }
-                res.json(row)
             })
     })
 

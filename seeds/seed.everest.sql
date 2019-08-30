@@ -298,9 +298,9 @@ VALUES
     'English',
     'Florida State University',
     'none',
-    '1',
-    '0',
-    '1'
+    1,
+    0,
+    1
     ),
   (
     false,
@@ -319,9 +319,9 @@ VALUES
     'English',
     'Florida State University',
     'none',
-    '1',
-    '0',
-    '1'
+    1,
+    0,
+    1
     );
 
 INSERT INTO everest_applications

@@ -40,7 +40,7 @@ function makeTeacherArray() {
             school: 'Florida State University',
             certification: 'none',
             years_of_experience: 1,
-            years_in_china: 0,
+            years_in_china: 1,
             years_teaching_abroad: 1,
         },
         {

@@ -27,13 +27,18 @@ const TeacherService = {
             .insert(newTeacher)
             .into('everest_teachers')
             .returning('*')
+            .then(rows => {
+                return rows[0]
+            })
     },
     updateTeacher(db, id, updatedTeacher) {
         return db('everest_teachers')
             .where('id', id)
             .update(updatedTeacher)
-            .returning('username')
-            .then(res => res)
+            .returning('*')
+            .then(rows => {
+                return rows[0]
+            })
     },
     deleteTeacher(db, id) {
         return db('everest_teachers')
