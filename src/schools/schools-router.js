@@ -41,7 +41,7 @@ schoolsRouter
             password: hashedPassword,
             school_type,
             school_name
-          };
+          }
 
           return SchoolsService.insertSchool(req.app.get('db'), newSchool).then(
             school => {
@@ -63,8 +63,8 @@ schoolsRouter
       .then(school => {
         if (!school) {
           return res.status(404).json({
-            error: { message: `School doesn't exist` }
-          });
+            error: `School doesn't exist`
+          })
         }
         res.school = school
         next()
@@ -72,17 +72,17 @@ schoolsRouter
       .catch(next)
   })
   .get((req, res, next) => {
-    res.json(SchoolsService.serializeSchool(res.school));
+    res.json(SchoolsService.serializeSchool(res.school))
   })
   .delete((req, res, next) => {
     SchoolsService.deleteSchool(req.app.get('db'), req.params.school_id)
       .then(numRowsAffected => {
-        res.status(204).end();
+        res.status(204).end()
       })
-      .catch(next);
+      .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const schoolToUpdate = req.body;
+    const schoolToUpdate = req.body
 
     SchoolsService.updateSchool(
       req.app.get('db'),
@@ -90,10 +90,10 @@ schoolsRouter
       schoolToUpdate
     )
       .then(numRowsAffected => {
-        res.status(200).json({ updated: true });
+        res.status(200).json({ updated: true })
       })
-      .catch(next);
-  });
+      .catch(next)
+  })
 
 schoolsRouter
   .route('/school')
@@ -103,7 +103,7 @@ schoolsRouter
     SchoolsService.getById(req.app.get('db'), school_id).then(school => {
       if (!school) {
         res.status(404).json({ error: `School doesn't exist` })
-        next();
+        next()
       } else {
         res.json(SchoolsService.serializeSchool(school))
       }

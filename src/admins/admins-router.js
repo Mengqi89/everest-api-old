@@ -10,7 +10,7 @@ adminsRouter
     .get((req, res, next) => {
         AdminsService.getAllAdmins(req.app.get('db'))
             .then(admins => admins.map(admin => AdminsService.serializeAdmin(admin)))
-            .then(admins => res.json(admins))
+            .then(admins => res.status(200).json(admins))
             .catch(next)
     })
     .post((req, res, next) => {
@@ -76,16 +76,26 @@ adminsRouter
     .get((req, res, next) => {
         const id = req.params.id
         AdminsService.getAdminById(req.app.get('db'), id)
-            .then(admin => AdminsService.serializeAdmin(admin))
-            .then(admin => res.json(admin))
+            .then(admin => {
+                if (!admin) {
+                    return res
+                        .status(404)
+                        .json({
+                            error: `Admin doesn't exist`
+                        })
+                    next()
+                } else {
+                    return res.json(AdminsService.serializeAdmin(admin))
+                }
+            })
             .catch(next)
-    })//need to catch error here when no id is found
+    })
     .patch((req, res, next) => {
         const id = req.params.id
-        const { first_name, last_name, email, password } = req.body
-        const newAdmin = { first_name, last_name, email, password }
+        const { first_name, last_name, email } = req.body
+        const newAdmin = { first_name, last_name, email }
 
-        const requiredFields = ['first_name', 'last_name', 'email', 'password']
+        const requiredFields = ['first_name', 'last_name', 'email']
         requiredFields.forEach(field => {
             if (newAdmin[field] === "") {
                 return res
@@ -96,32 +106,46 @@ adminsRouter
             }
         })
 
-        const passwordError = AdminsService.validatePassword(password)
-
-        if (passwordError) {
-            return res.status(400).json({ error: passwordError })
-        }
-
-        AdminsService.hashPassword(password)
-            .then(hashedPassword => {
-                const updatedAdmin = {
-                    first_name,
-                    last_name,
-                    password: hashedPassword,
-                    email
+        AdminsService.updateAdmin(req.app.get('db'), id, newAdmin)
+            .then(updatedAdmin => {
+                if (!updatedAdmin) {
+                    return res
+                        .status(404)
+                        .json({ error: `Admin doesn't exist` })
+                    next()
+                } else {
+                    return res
+                        .status(201)
+                        .json(AdminsService.serializeAdmin(updatedAdmin))
                 }
-                return AdminsService.updateAdmin(req.app.get('db'), id, updatedAdmin)
-                    .then(updatedAdmin => {
-                        res
-                            .status(201)
-                            .json(AdminsService.serializeAdmin(updatedAdmin))
-                    })
-                    .catch(next)
             })
+            .catch(next)
+
+        // const passwordError = AdminsService.validatePassword(password)
+
+        // if (passwordError) {
+        //     return res.status(400).json({ error: passwordError })
+        // }
+
+        // AdminsService.hashPassword(password)
+        //     .then(hashedPassword => {
+        //         const updatedAdmin = {
+        //             first_name,
+        //             last_name,
+        //             password: hashedPassword,
+        //             email
+        //         }
+        //         return AdminsService.updateAdmin(req.app.get('db'), id, updatedAdmin)
+        //             .then(updatedAdmin => {
+        //                 res
+        //                     .status(201)
+        //                     .json(AdminsService.serializeAdmin(updatedAdmin))
+        //             })
+        //             .catch(next)
+        //     })
     })
     .delete((req, res, next) => {
         const id = req.params.id
-
         AdminsService.deleteAdmin(req.app.get('db'), id)
             .then(admins => {
                 res

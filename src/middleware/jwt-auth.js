@@ -10,19 +10,19 @@ function requireAdminAuth(req, res, next) {
   }
 
   try {
-    const payload = AuthService.verifyJwt(bearerToken);
+    const payload = AuthService.verifyJwt(bearerToken)
     AuthService.getAdminUsername(req.app.get('db'), payload.sub)
       .then(user => {
         if (!user)
           return res.status(401).json({ error: 'Unauthorized request' })
-        req.user = user;
-        next();
-        return null;
+        req.user = user
+        next()
+        return null
 
       })
       .catch(err => {
         next(err)
-      });
+      })
   } catch (error) {
     res.status(401).json({ error: 'Unauthorized request' })
   }
@@ -30,7 +30,7 @@ function requireAdminAuth(req, res, next) {
 
 function requireSchoolAuth(req, res, next) {
   const authToken = req.get('Authorization') || ''
-  let bearerToken;
+  let bearerToken
   if (!authToken.toLowerCase().startsWith('bearer ')) {
     return res.status(401).json({ error: 'Missing bearer token' })
   } else {
@@ -48,7 +48,7 @@ function requireSchoolAuth(req, res, next) {
           return res.status(401).json({ error: 'Unauthorized request' })
         req.user = user
         next()
-        return null;
+        return null
       })
       .catch(err => {
         next(err)
@@ -78,7 +78,7 @@ function requireTeacherAuth(req, res, next) {
           return res.status(401).json({ error: 'Unauthorized request' })
         req.user = user
         next()
-        return null;
+        return null
       })
       .catch(err => {
         next(err)

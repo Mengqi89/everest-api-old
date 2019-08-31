@@ -1,6 +1,6 @@
-const path = require('path')
+// const path = require('path')
 const express = require('express')
-const xss = require('xss')
+// const xss = require('xss')
 const JobsService = require('./jobs-service')
 
 const jobsRouter = express.Router()
@@ -102,7 +102,7 @@ jobsRouter
             .then(job => {
                 if (!job) {
                     return res.status(404).json({
-                        error: { message: `Job doesn't exist` }
+                        error: `Job doesn't exist`
                     })
                 }
                 res.job = job
@@ -127,7 +127,7 @@ jobsRouter
         const jobToUpdate = req.body
         const requiredFields = ['job_title', 'total_salary', 'course', 'grade_level']
         requiredFields.forEach(field => {
-            if (jobToUpdate[field] === null)
+            if (jobToUpdate[field] === '')
                 return res.status(400).json({
                     error: { message: `Missing '${field}' in request body` }
                 })

@@ -16,7 +16,7 @@ CREATE TABLE everest_teachers
     field_of_degree TEXT NOT NULL,
     school TEXT NOT NULL,
     certification TEXT NOT NULL,
-    years_of_experience TEXT NOT NULL,
-    years_in_china TEXT NOT NULL,
-    years_teaching_abroad TEXT NOT NULL
+    years_of_experience INTEGER,
+    years_in_china INTEGER,
+    years_teaching_abroad INTEGER
 );
